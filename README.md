@@ -8,6 +8,10 @@ The project is divided into two modules:
 
 - **application**: contain the WebApp for viewing and recording information regarding the progress of property security.
 
+The system features can be seen in the use case diagram below:
+
+<img src="https://github.com/rafaelscariot/security-master/blob/master/resources/usecases.png" />
+
 ## Use
 In the *docker* directory run the following command:
 ```bash
