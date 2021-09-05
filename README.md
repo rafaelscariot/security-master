@@ -1,6 +1,6 @@
 # Security Master 📷🔒
 
-Security software for rural, residential or business properties, which was developed as a completion of the course for the of Análise e Desenvolvimento de Sistemas, from Instituto Federal de Educação Ciência e Tecnologia do Rio Grande do Sul - Câmpus Sertão and aims to increase the security control that the owners have in relation to their properties.
+System built in order to monitor, notify and detect the traffic of people and vehicles in a certain region and time with one or more security cameras.
 
 The project is divided into two modules:
 

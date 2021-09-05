@@ -1,7 +1,6 @@
 const User = require('../models/User');
 const Device = require('../models/Device');
 const getUserId = require('../public/js/getUserId');
-
 const db = require('../../config/database');
 const bcrypt = require('bcrypt');
 
@@ -34,9 +33,9 @@ routes = app => {
 
     app.post('/change/user/information', async (req, res) => {
         try {
-            const { token, newPassword, name } = req.body;
+            const { token, newPassword, name, email } = req.body;
 
-            if (name === '' || newPassword === '') {
+            if (name === '' || newPassword === '' || email === '') {
                 res.status(404).send({});
             }
 
@@ -47,7 +46,7 @@ routes = app => {
             await userIdPromise.then(v => {
                 const userId = v.data.status;
 
-                const update = { fullName: name, password: cryptHash };
+                const update = { fullName: name, password: cryptHash, email };
 
                 User.updateOne({ _id: userId }, update, { new: true }, (err, doc) => {
                     if (err)

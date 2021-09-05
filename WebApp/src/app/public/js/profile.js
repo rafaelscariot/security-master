@@ -20,7 +20,6 @@ xhr.onreadystatechange = function () {
         inputEmail.val(data.email);
         inputName.val(data.fullName);
         inputPassword.val(data.password);
-        modalEmail.val(data.email);
     }
 };
 
@@ -117,12 +116,20 @@ $('#btnmodal').click(event => {
     const modalAlertSuccess = $('#modalAlertSuccess');
     const modalName = $('#modalName').val();
     const modalPassword = $('#modalPassword').val();
+    const modalEmail = $('#modalEmail').val();
 
     let ok = true;
 
     if (modalPassword.length < 4) {
         modalAlertSuccess.css('display', 'none');
         modalAlertError.text('Sua senha deve ter ao menos 4 caracteres!');
+        modalAlertError.css('display', 'block');
+        ok = false;
+    }
+
+    if (!validateEmail(modalEmail)) {
+        modalAlertSuccess.css('display', 'none');
+        modalAlertError.text('E-mail inválido!');
         modalAlertError.css('display', 'block');
         ok = false;
     }
@@ -138,8 +145,9 @@ $('#btnmodal').click(event => {
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
             token: localStorage.getItem('JWT'),
-            name: modalName,
-            newPassword: modalPassword
+            fullName: modalName,
+            newPassword: modalPassword,
+            email: modalEmail
         }));
 
         xhr.onreadystatechange = function () {
@@ -183,3 +191,8 @@ const deleteChatId = ((index, chatId) => {
         }
     };
 });
+
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
