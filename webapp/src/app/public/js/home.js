@@ -1,4 +1,4 @@
-// authenticate validation
+// authenticate
 $('#form-login').submit(event => {
     const alert = $('#login-alert');
     const inputEmail = $('#email').val();
@@ -26,7 +26,7 @@ $('#form-login').submit(event => {
     event.preventDefault();
 });
 
-// register validation
+// register
 $('#form-register').submit(event => {
     const alert = $('#register-alert');
     const sucessAlert = $('#register-sucess-alert');
@@ -57,8 +57,8 @@ $('#form-register').submit(event => {
             url: "/user",
             data: {
                 fullName: inputName,
-                emailRegister: inputEmail,
-                passwordRegister: inputPassword,
+                email: inputEmail,
+                password: inputPassword,
                 repeatPassword: inputPasswordRepeat
             }
         }).done(response => {

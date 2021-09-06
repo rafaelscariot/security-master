@@ -1,5 +1,5 @@
-const User = require('../models/User');
-const Device = require('../models/Device');
+const UserModel = require('../models/User');
+const DeviceModel = require('../models/Device');
 const getUserId = require('../public/js/getUserId');
 const bcrypt = require('bcrypt');
 
@@ -13,7 +13,7 @@ routes = app => {
             await userIdPromise.then(v => {
                 const userId = v.data.status;
 
-                User.findById(userId, (err, docs) => {
+                UserModel.findById(userId, (err, docs) => {
                     if (err) {
                         console.log(err);
                     } else {
@@ -50,7 +50,7 @@ routes = app => {
 
                 const update = { fullName: name, password: cryptHash, email };
 
-                User.updateOne({ _id: userId }, update, { new: true }, (err, doc) => {
+                UserModel.updateOne({ _id: userId }, update, { new: true }, (err, doc) => {
                     if (err)
                         console.log(err);
                     else
@@ -81,7 +81,7 @@ routes = app => {
                 await userIdPromise.then(v => {
                     const userId = v.data.status;
 
-                    Device.create({
+                    DeviceModel.create({
                         userId,
                         chatId,
                         surname
@@ -109,7 +109,7 @@ routes = app => {
             await userIdPromise.then(v => {
                 const userId = v.data.status;
 
-                Device.find({ userId }, (err, docs) => {
+                DeviceModel.find({ userId }, (err, docs) => {
                     if (err) {
                         console.log(err);
                     } if (docs === null || !docs) {
@@ -128,7 +128,7 @@ routes = app => {
     app.delete('/device/:chatId', async (req, res) => {
         const { chatId } = req.params;
 
-        Device.deleteOne({ chatId }, error => {
+        DeviceModel.deleteOne({ chatId }, error => {
             if (error) {
                 res.status(400).send({});
             }
