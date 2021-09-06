@@ -14,14 +14,15 @@ routes = app => {
                 const userId = v.data.status;
 
                 User.findById(userId, (err, docs) => {
-                    if (err)
+                    if (err) {
                         console.log(err);
-                    else
+                    } else {
                         res.send({
                             'email': docs.email,
                             'fullName': docs.fullName,
                             'password': docs.password
                         })
+                    }
                 }).select('+password');
             });
         } catch (err) {
@@ -41,7 +42,6 @@ routes = app => {
             const userIdPromise = getUserId(token);
 
             let cryptHash = bcrypt.hashSync(newPassword, 10);
-
 
             await userIdPromise.then(v => {
                 const userId = v.data.status;

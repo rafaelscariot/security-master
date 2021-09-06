@@ -1,7 +1,7 @@
 templates = app => {
     app.get('/', async (req, res) => {
         try {
-            res.marko(require('../views/base/home/home.marko'));
+            res.marko(require('../../views/home/home.marko'));
         } catch (err) {
             return res.status(400).send({ error: err });
         }
@@ -9,15 +9,7 @@ templates = app => {
 
     app.get('/securitymaster/home', async (req, res) => {
         try {
-            res.marko(require('../views/base/securitymaster/home.marko'));
-        } catch (err) {
-            return res.status(400).send({ error: err });
-        }
-    });
-
-    app.get('/securitymaster/suspectactivities', async (req, res) => {
-        try {
-            res.marko(require('../views/base/securitymaster/suspectactivities.marko'));
+            res.marko(require('../../views/base/home.marko'));
         } catch (err) {
             return res.status(400).send({ error: err });
         }
@@ -25,23 +17,15 @@ templates = app => {
 
     app.get('/securitymaster/profile', async (req, res) => {
         try {
-            res.marko(require('../views/base/securitymaster/profile.marko'));
+            res.marko(require('../../views/base/profile.marko'));
         } catch (err) {
             return res.status(400).send({ error: err });
         }
     });
 
-    app.get('/securitymaster/register/region', async (req, res) => {
+    app.get('/securitymaster/region', async (req, res) => {
         try {
-            res.marko(require('../views/base/securitymaster/registerregion.marko'));
-        } catch (err) {
-            return res.status(400).send({ error: err });
-        }
-    });
-
-    app.get('/securitymaster/monitoring', async (req, res) => {
-        try {
-            res.marko(require('../views/base/securitymaster/monitoring.marko'));
+            res.marko(require('../../views/base/region.marko'));
         } catch (err) {
             return res.status(400).send({ error: err });
         }
@@ -49,7 +33,7 @@ templates = app => {
 
     app.get('/error', async (req, res) => {
         try {
-            res.marko(require('../views/base/errors/500.marko'));
+            res.marko(require('../../views/errors/500.marko'));
         } catch (err) {
             return res.status(400).send({ error: err });
         }
@@ -57,7 +41,7 @@ templates = app => {
 
     app.get('*', async (req, res) => {
         try {
-            res.status(404).marko(require('../views/base/errors/404.marko'));
+            res.status(404).marko(require('../views/errors/404.marko'));
         } catch (err) {
             return res.status(400).send({ error: err });
         }

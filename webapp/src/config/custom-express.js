@@ -1,3 +1,5 @@
+require('./database');
+
 require('marko/node-require').install();
 require('marko/express');
 
@@ -6,6 +8,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
+
 app.use('/static', express.static('src/app/public'));
 app.use(cors({ origin: 'http://localhost:3000', optionsSuccessStatus: 200 }))
 app.use(bodyParser.urlencoded({ extended: false }))
