@@ -42,7 +42,7 @@ auth = app => {
         }
     });
 
-    app.post('/register/user', async (req, res) => {
+    app.post('/user', async (req, res) => {
         try {
             const { fullName, emailRegister, passwordRegister, repeatPassword } = req.body;
 

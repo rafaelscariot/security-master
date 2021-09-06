@@ -54,7 +54,7 @@ $('#form-register').submit(event => {
     if (ok) {
         $.ajax({
             method: "POST",
-            url: "/register/user",
+            url: "/user",
             data: {
                 fullName: inputName,
                 emailRegister: inputEmail,

@@ -31,7 +31,7 @@ routes = app => {
         }
     });
 
-    app.post('/change/user/information', async (req, res) => {
+    app.put('/user', async (req, res) => {
         try {
             const { token, newPassword, name, email } = req.body;
 
@@ -43,8 +43,11 @@ routes = app => {
 
             let cryptHash = bcrypt.hashSync(newPassword, 10);
 
+
             await userIdPromise.then(v => {
                 const userId = v.data.status;
+
+                console.log(name)
 
                 const update = { fullName: name, password: cryptHash, email };
 
@@ -61,7 +64,7 @@ routes = app => {
         }
     });
 
-    app.post('/register/chatId', async (req, res) => {
+    app.post('/chatId', async (req, res) => {
         try {
             const { token, chatId, surname } = req.body;
 
@@ -123,7 +126,7 @@ routes = app => {
         }
     });
 
-    app.delete('/delete/device', async (req, res) => {
+    app.delete('/device', async (req, res) => {
         const { chatId } = req.body;
 
         Device.deleteOne({ chatId }, error => {

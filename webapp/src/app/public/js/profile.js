@@ -83,7 +83,7 @@ $('#btnChatID').click(event => {
     }
 
     if (ok) {
-        xhr.open("POST", 'http://localhost:3000/register/chatId', true);
+        xhr.open("POST", 'http://localhost:3000/chatId', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
             token: localStorage.getItem('JWT'),
@@ -109,7 +109,7 @@ $('#btnChatID').click(event => {
     }
 });
 
-// change user information
+// update user
 $('#btnmodal').click(event => {
     var xhr = new XMLHttpRequest();
     const modalAlertError = $('#modalAlertError');
@@ -141,11 +141,11 @@ $('#btnmodal').click(event => {
     }
 
     if (ok) {
-        xhr.open("POST", 'http://localhost:3000/change/user/information', true);
+        xhr.open("PUT", 'http://localhost:3000/user', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
             token: localStorage.getItem('JWT'),
-            fullName: modalName,
+            name: modalName,
             newPassword: modalPassword,
             email: modalEmail
         }));
@@ -157,7 +157,7 @@ $('#btnmodal').click(event => {
                 modalAlertError.css('display', 'none')
                 modalAlertSuccess.text('Alterações salvas!');
                 modalAlertSuccess.css('display', 'block');
-                inputNome.val(modalName);
+                inputName.val(modalName);
             } else {
                 modalAlertSuccess.css('display', 'none');
                 modalAlertError.text('Ocorreu um erro inesperado. Tente novamente!');
@@ -175,7 +175,7 @@ $('.closeModalBtn').click(event => {
 // delete chat id
 const deleteChatId = ((index, chatId) => {
     var xhr = new XMLHttpRequest();
-    xhr.open("DELETE", 'http://localhost:3000/delete/device', true);
+    xhr.open("DELETE", 'http://localhost:3000/device', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({
         chatId
