@@ -6,7 +6,7 @@ The project is divided into two modules:
 
 - **smart_camera_server**: contain a server to process video streaming from surveillance cameras and trigger alerts to users.
 
-- **application**: contain the WebApp for viewing and recording information regarding the progress of property security.
+- **webapp**: contain the WebApp for viewing and recording information regarding the progress of property security.
 
 The system features can be seen in the use case diagram below:
 
