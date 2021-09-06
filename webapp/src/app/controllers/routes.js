@@ -1,13 +1,12 @@
 const User = require('../models/User');
 const Device = require('../models/Device');
 const getUserId = require('../public/js/getUserId');
-const db = require('../../config/database');
 const bcrypt = require('bcrypt');
 
 routes = app => {
-    app.post('/search/user', async (req, res) => {
+    app.get('/user/:token', async (req, res) => {
         try {
-            const { token } = req.body;
+            const { token } = req.params;
 
             const userIdPromise = getUserId(token);
 
@@ -101,9 +100,9 @@ routes = app => {
         }
     });
 
-    app.post('/search/device', async (req, res) => {
+    app.get('/device/:token', async (req, res) => {
         try {
-            const { token } = req.body;
+            const { token } = req.params;
 
             const userIdPromise = getUserId(token);
 
@@ -126,8 +125,8 @@ routes = app => {
         }
     });
 
-    app.delete('/device', async (req, res) => {
-        const { chatId } = req.body;
+    app.delete('/device/:chatId', async (req, res) => {
+        const { chatId } = req.params;
 
         Device.deleteOne({ chatId }, error => {
             if (error) {
@@ -135,85 +134,6 @@ routes = app => {
             }
             res.status(200).send({});
         });
-    });
-
-    app.post('/register/region', (req, res) => {
-        try {
-            const { name, description, startTime, endTime, userID } = req.body;
-
-            let status = ''
-            let ok = false;
-
-            if (name === '' || description === '' || startTime === '' || endTime === '' || userID === '') {
-                status = 'Preencha todos os campos!';
-            } else { ok = true }
-
-            if (ok) {
-                db.run(
-                    'INSERT INTO regions (name, description, startTime, endTime, userID) VALUES (?, ?, ?, ?, ?)',
-                    [name, description, startTime, endTime, userID],
-                    err => {
-                        if (err) {
-                            console.log('[ERROR]:', err);
-                        } else {
-                            res.send({ 'status': 200 });
-                        }
-                    }
-                );
-            } else {
-                res.send(status);
-            }
-        } catch (err) {
-            return res.status(400).send({ error: err });
-        }
-    });
-
-    app.post('/search/regions', (req, res) => {
-        try {
-            const { userID } = req.body;
-
-            db.all(
-                'SELECT name, description, startTime, endTime FROM regions WHERE userID = ?',
-                [userID],
-                (err, rows) => {
-                    if (err) {
-                        console.log('[ERROR]', err);
-                    }
-
-                    if (rows === undefined || rows.length == 0) {
-                        res.status(404);
-                    }
-
-                    res.status(200).send(rows);
-                }
-            );
-        } catch (err) {
-            return res.status(400).send({ error: err });
-        }
-    });
-
-    app.post('/search/alerts', (req, res) => {
-        try {
-            const { userID } = req.body;
-
-            db.all(
-                'SELECT userID, date, hour FROM alerts_history WHERE userID = ?',
-                [userID],
-                (err, rows) => {
-                    if (err) {
-                        console.log('[ERROR]', err);
-                    }
-
-                    if (rows === undefined || rows.length === 0) {
-                        res.status(404);
-                    }
-
-                    res.status(200).send(rows);
-                }
-            );
-        } catch (error) {
-            return res.status(400).send({ error: err });
-        }
     });
 }
 

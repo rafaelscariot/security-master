@@ -20,7 +20,6 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-
 // application routes
 require('../app/controllers/routes.js')(app);
 require('../app/controllers/templates.js')(app);

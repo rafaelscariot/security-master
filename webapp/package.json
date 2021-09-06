@@ -17,8 +17,7 @@
     "express": "4.16.3",
     "jsonwebtoken": "^8.5.1",
     "marko": "4.13.4-1",
-    "mongoose": "^5.12.10",
-    "sqlite3": "^5.0.0"
+    "mongoose": "^5.12.10"
   },
   "devDependencies": {
     "nodemon": "1.18.4"

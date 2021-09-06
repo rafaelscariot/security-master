@@ -5,11 +5,9 @@ const modalEmail = $('#modalEmail');
 
 // get user informations
 var xhr = new XMLHttpRequest();
-xhr.open("POST", 'http://localhost:3000/search/user', true);
+xhr.open("GET", `http://localhost:3000/user/${localStorage.getItem('JWT')}`, true);
 xhr.setRequestHeader('Content-Type', 'application/json');
-xhr.send(JSON.stringify({
-    token: localStorage.getItem('JWT')
-}));
+xhr.send();
 
 xhr.onreadystatechange = function () {
     if (this.readyState != 4) return;
@@ -25,11 +23,9 @@ xhr.onreadystatechange = function () {
 
 // get devices
 var xhrDevice = new XMLHttpRequest();
-xhrDevice.open("POST", 'http://localhost:3000/search/device', true);
+xhrDevice.open("GET", `http://localhost:3000/device/${localStorage.getItem('JWT')}`, true);
 xhrDevice.setRequestHeader('Content-Type', 'application/json');
-xhrDevice.send(JSON.stringify({
-    token: localStorage.getItem('JWT')
-}));
+xhrDevice.send();
 
 xhrDevice.onreadystatechange = function () {
     if (this.readyState != 4) return;
@@ -175,11 +171,9 @@ $('.closeModalBtn').click(event => {
 // delete chat id
 const deleteChatId = ((index, chatId) => {
     var xhr = new XMLHttpRequest();
-    xhr.open("DELETE", 'http://localhost:3000/device', true);
+    xhr.open("DELETE", `http://localhost:3000/device/${chatId}`, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-        chatId
-    }));
+    xhr.send();
 
     xhr.onreadystatechange = function () {
         if (this.readyState != 4) return;
