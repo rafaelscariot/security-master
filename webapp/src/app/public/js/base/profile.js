@@ -4,7 +4,7 @@ const inputPassword = $('#inputPassword');
 const modalEmail = $('#modalEmail');
 
 // get user informations
-var xhr = new XMLHttpRequest();
+let xhr = new XMLHttpRequest();
 xhr.open("GET", `http://localhost:3000/user/${localStorage.getItem('JWT')}`, true);
 xhr.setRequestHeader('Content-Type', 'application/json');
 xhr.send();
@@ -13,7 +13,7 @@ xhr.onreadystatechange = function () {
     if (this.readyState != 4) return;
 
     if (this.status === 200) {
-        var data = JSON.parse(this.responseText);
+        let data = JSON.parse(this.responseText);
 
         inputEmail.val(data.email);
         inputName.val(data.fullName);
@@ -22,7 +22,7 @@ xhr.onreadystatechange = function () {
 };
 
 // get devices
-var xhrDevice = new XMLHttpRequest();
+let xhrDevice = new XMLHttpRequest();
 xhrDevice.open("GET", `http://localhost:3000/device/${localStorage.getItem('JWT')}`, true);
 xhrDevice.setRequestHeader('Content-Type', 'application/json');
 xhrDevice.send();
@@ -31,7 +31,7 @@ xhrDevice.onreadystatechange = function () {
     if (this.readyState != 4) return;
 
     if (this.status === 200) {
-        var data = JSON.parse(this.responseText);
+        let data = JSON.parse(this.responseText);
 
         let divDevices = document.querySelector('#devices');
 
@@ -55,8 +55,8 @@ xhrDevice.onreadystatechange = function () {
 };
 
 // register chatID
-$('#btnChatID').click(event => {
-    var xhr = new XMLHttpRequest();
+$('#btnChatID').click(() => {
+    let xhr = new XMLHttpRequest();
     const errorAlert = $('#chatIdError');
     const successAlert = $('#chatIdSuccess');
     let inputChatId = $('#modalChatID').val();
@@ -106,8 +106,8 @@ $('#btnChatID').click(event => {
 });
 
 // update user
-$('#btnmodal').click(event => {
-    var xhr = new XMLHttpRequest();
+$('#btnmodal').click(() => {
+    let xhr = new XMLHttpRequest();
     const modalAlertError = $('#modalAlertError');
     const modalAlertSuccess = $('#modalAlertSuccess');
     const modalName = $('#modalName').val();
@@ -164,13 +164,13 @@ $('#btnmodal').click(event => {
 });
 
 // close modal
-$('.closeModalBtn').click(event => {
+$('.closeModalBtn').click(() => {
     window.location.replace('http://localhost:3000/securitymaster/profile');
 });
 
 // delete chat id
 const deleteChatId = ((index, chatId) => {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open("DELETE", `http://localhost:3000/device/${chatId}`, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send();

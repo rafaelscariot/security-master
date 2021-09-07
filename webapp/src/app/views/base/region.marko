@@ -99,12 +99,41 @@
         </nav>
         
       <!-- PAGE CONTENT -->
-
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputRegion">Região</label>
+            <input type="text" class="form-control" id="inputRegion" placeholder="Região">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputDescription">Descrição</label>
+            <input type="text" class="form-control" id="inputDescription" placeholder="Descrição">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputIpCam">Endereço da câmera IP</label>
+          <input type="text" class="form-control" id="inputIpCam" placeholder="Endereço da câmera IP">
+        </div>
+        <p style="font-size: 1.5em; text-align: center">Horário de monitoramento</p>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="startTime">Início</label>
+            <input type="time" class="form-control" id="inputStartTime" name="startTime" placeholder="Hora inicial">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="endTime">Término</label>
+            <input type="time" class="form-control" id="inputEndTime" name="endTime" placeholder="Hora de término">
+          </div>
+        </div>
+        <button type="button" id="btnRegister" class="btn btn-primary">Cadastrar</button>
+      </form>
       </div>
     </div>
+
     <script src="/static/js/util/jquery.min.js" />
     <script src="/static/js/isAuthenticated.js" />
     <script src="/static/js/util/bootstrap.min.js" />
     <script src="/static/js/main.js" />
+    <script src="/static/js/base/region.js" />
   </body>
 </html>

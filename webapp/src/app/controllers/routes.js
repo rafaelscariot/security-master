@@ -46,8 +46,6 @@ routes = app => {
             await userIdPromise.then(v => {
                 const userId = v.data.status;
 
-                console.log(name)
-
                 const update = { fullName: name, password: cryptHash, email };
 
                 UserModel.updateOne({ _id: userId }, update, { new: true }, (err, doc) => {
@@ -130,10 +128,16 @@ routes = app => {
 
         DeviceModel.deleteOne({ chatId }, error => {
             if (error) {
-                res.status(400).send({});
+                res.status(400).send({ message: error });
             }
-            res.status(200).send({});
+            res.status(200).send({ message: 'OK' });
         });
+    });
+
+    app.post('/region', async (req, res) => {
+        const { region, ipCam, description, startTime, endTime, token } = req.body;
+
+        res.status(200).send({ message: 'OK' });
     });
 }
 

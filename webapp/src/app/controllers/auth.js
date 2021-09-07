@@ -1,11 +1,11 @@
 const authMiddleware = require('../middlewares/auth');
-const UserService = require('../services/UserService.js');
+const AuthService = require('../services/AuthService.js');
 
 auth = app => {
     app.post('/authenticate', async (req, res) => {
         try {
             const { email, password } = req.body;
-            let response = await new UserService().authentication(email, password);
+            let response = await new AuthService().authentication(email, password);
             res.send(response);
         } catch (err) {
             console.log('[USER AUTHENTICATION ERROR] ' + err)
@@ -16,7 +16,7 @@ auth = app => {
     app.post('/user', async (req, res) => {
         try {
             const { fullName, email, password, repeatPassword } = req.body;
-            let response = await new UserService().register(fullName, email, password, repeatPassword)
+            let response = await new AuthService().register(fullName, email, password, repeatPassword)
             res.send(response);
         } catch (err) {
             console.log('[USER REGISTER ERROR] ' + err)

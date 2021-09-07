@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const authConfig = require('../../config/auth.json');
 const bcrypt = require('bcrypt');
 
-class UserService {
+class AuthService {
 
     async authentication(email, password) {
         if (!email || !password || email === '' || password === '') {
@@ -71,7 +71,6 @@ class UserService {
             return { error: true, status: responseStatus };
         }
     }
-
 }
 
-module.exports = UserService;
+module.exports = AuthService;
