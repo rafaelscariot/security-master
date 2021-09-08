@@ -1,4 +1,3 @@
-const authMiddleware = require('../middlewares/auth');
 const AuthService = require('../services/AuthService.js');
 
 auth = app => {
@@ -6,10 +5,10 @@ auth = app => {
         try {
             const { email, password } = req.body;
             let response = await new AuthService().authentication(email, password);
-            res.send(response);
+            res.status(200).send(response);
         } catch (err) {
             console.log('[USER AUTHENTICATION ERROR] ' + err)
-            return res.send({ error: true, status: String(err) });
+            res.status(401).send({ message: String(err) });
         }
     });
 
@@ -17,33 +16,21 @@ auth = app => {
         try {
             const { fullName, email, password, repeatPassword } = req.body;
             let response = await new AuthService().register(fullName, email, password, repeatPassword)
-            res.send(response);
+            res.status(200).send(response);
         } catch (err) {
             console.log('[USER REGISTER ERROR] ' + err)
-            return res.send({ error: true, status: "E-mail já cadastrado" });
+            return res.status(400).send({ message: String(err) });
         }
     });
 
     app.post('/token/validator', async (req, res) => {
         try {
             const { token } = req.body;
-
-            const tokenFormated = 'Bearer ' + token;
-
-            const tokenValidator = authMiddleware(tokenFormated);
-
-            let error = true;
-            let status = 'Invalid token';
-
-            if (tokenValidator.error === false) {
-                error = false;
-                status = tokenValidator.status;
-            }
-
-            return res.send({ error, status })
+            let response = await new AuthService().tokenValidator(token);
+            res.status(200).send(response);
         } catch (err) {
             console.log('[TOKEN VALIDATOR ERROR] ' + err)
-            return res.send({ error: true, status: String(err) });
+            return res.status(401).send({ message: String(err) });
         }
     });
 }

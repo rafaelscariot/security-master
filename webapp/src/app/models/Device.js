@@ -12,7 +12,6 @@ const DeviceSchema = new mongoose.Schema({
     },
     surname: {
         type: String,
-        unique: true,
         required: true,
     }
 });

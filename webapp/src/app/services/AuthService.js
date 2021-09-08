@@ -1,74 +1,110 @@
 const UserModel = require('../models/User');
-const jwt = require('jsonwebtoken');
 const authConfig = require('../../config/auth.json');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 class AuthService {
-
     async authentication(email, password) {
-        if (!email || !password || email === '' || password === '') {
-            return {
-                error: true,
-                status: "E-mail ou senha inválidos!"
-            };
-        }
+        try {
+            if (email === '' || password === '') {
+                throw new Error('E-mail ou senha inválidos');
+            }
 
-        let token = undefined;
+            let token = undefined;
 
-        const user = await UserModel.findOne({ email }).select('+password');
+            const user = await UserModel.findOne({ email }).select('+password');
 
-        if (!user) {
-            return { error: true, status: "E-mail não cadastrado!" };
-        }
+            if (!user) {
+                throw new Error('E-mail não cadastrado');
+            }
 
-        if (!await bcrypt.compare(password, user.password)) {
-            return { error: true, status: "Senha incorreta!" };
-        } else {
-            user.password = undefined;
+            if (!await bcrypt.compare(password, user.password)) {
+                throw new Error('Senha incorreta');
+            } else {
+                user.password = undefined;
 
-            token = jwt.sign({ id: user.id }, authConfig.secret, {
-                expiresIn: 86400
-            });
+                token = jwt.sign({ id: user.id }, authConfig.secret, {
+                    expiresIn: 86400
+                });
 
-            return {
-                error: false,
-                fullName: user.fullName,
-                token
-            };
+                return {
+                    fullName: user.fullName,
+                    token
+                };
+            }
+        } catch (err) {
+            throw new Error('Um erro inesperado ocorreu');
         }
     }
 
     async register(fullName, email, password, repeatPassword) {
-        let responseStatus = 'Ok';
-        let ok = false;
+        try {
+            if (email === '' || password === '' || fullName === '' || repeatPassword === '') {
+                throw new Error('Campos inválidos');
+            }
 
-        if (email === '' || password === '' || fullName === '' || repeatPassword === '') {
-            responseStatus = 'Preencha todos os campos!';
-        } else if (fullName.length < 4) {
-            responseStatus = 'Nome inválido!';
-        } else if (password.length < 4) {
-            responseStatus = 'Sua senha deve ter ao menos 4 caracteres!';
-        } else if (password !== repeatPassword) {
-            responseStatus = 'Senhas não conferem!';
-        } else { ok = true }
+            if (password.length < 4) {
+                throw new Error('Senha deve ter ao menos 4 caracteres');
+            }
 
-        if (await UserModel.findOne({ email })) {
-            responseStatus = 'E-mail já cadastrado';
-            ok = false;
-        }
+            if (password !== repeatPassword) {
+                throw new Error('Senhas não conferem');
+            }
 
-        if (ok) {
+            if (await UserModel.findOne({ email })) {
+                throw new Error('E-mail já cadastrado');
+            }
+
             let cryptHash = bcrypt.hashSync(password, 10);
 
             await UserModel.create({
                 fullName,
-                email: email,
+                email,
                 password: cryptHash
             });
 
-            return { error: false, status: responseStatus };
-        } else {
-            return { error: true, status: responseStatus };
+            return { message: 'Created user' };
+        } catch (err) {
+            throw new Error('Um erro inesperado ocorreu');
+        }
+    }
+
+    async tokenValidator(tokenJwt) {
+        try {
+            const tokenFormated = 'Bearer ' + tokenJwt;
+
+            if (!tokenFormated) throw new Error('Expect to receive a token');
+
+            const parts = tokenFormated.split(' ');
+
+            if (!parts.length === 2) {
+                throw new Error('Invalid token');
+            }
+
+            const [scheme, token] = parts;
+
+            if (!/^Bearer$/i.test(scheme)) {
+                throw new Error('Invalid token');
+            }
+
+            let userId = undefined;
+            let validToken = false;
+
+            jwt.verify(token, authConfig.secret, (err, decoded) => {
+                if (err) throw new Error('Invalid token');
+
+                userId = decoded.id;
+
+                validToken = true;
+            });
+
+            if (validToken) {
+                return { userId };
+            } else {
+                throw new Error('Invalid token');
+            }
+        } catch (err) {
+            throw new Error('Um erro inesperado ocorreu');
         }
     }
 }

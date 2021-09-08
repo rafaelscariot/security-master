@@ -1,79 +1,73 @@
 // authenticate
 $('#form-login').submit(event => {
     const alert = $('#login-alert');
-    const inputEmail = $('#email').val();
-    const inputPassword = $('#password').val();
+    const email = $('#email').val();
+    const password = $('#password').val();
 
-    if (inputEmail === '' || inputPassword === '') {
-        alert.text('E-mail ou senha incorretos. Tente novamente!');
+    if (email === '' || password === '') {
+        alert.text('E-mail ou senha incorretos');
         alert.css('display', 'block');
     } else {
         $.ajax({
             method: "POST",
             url: "/authenticate",
-            data: { email: inputEmail, password: inputPassword }
-        }).done(response => {
-            if (response.error === false) {
-                localStorage.setItem('JWT', response.token);
-                localStorage.setItem('userName', response.fullName);
-                window.location.replace("http://localhost:3000/securitymaster/home");
-            } else {
-                alert.text(response.status);
-                alert.css('display', 'block');
+            data: {
+                email,
+                password
             }
+        }).done(data => {
+            localStorage.setItem('JWT', data.token);
+            localStorage.setItem('userName', data.fullName);
+            window.location.replace("http://localhost:3000/securitymaster/home");
+        }).fail(data => {
+            alert.text(data.responseJSON.message.replace('Error: ', ''));
+            alert.css('display', 'block');
         });
     }
+
     event.preventDefault();
 });
 
 // register
 $('#form-register').submit(event => {
-    const alert = $('#register-alert');
+    const errorAlert = $('#register-alert');
     const sucessAlert = $('#register-sucess-alert');
-    const inputName = $('#full_name').val();
-    const inputEmail = $('#emailregister').val();
-    const inputPassword = $('#passwordregister').val();
-    const inputPasswordRepeat = $('#repeatpassword').val();
+    const fullName = $('#full-name').val();
+    const email = $('#email-register').val();
+    const password = $('#password-register').val();
+    const repeatPassword = $('#repeat-password').val();
 
-    let ok = false
-
-    if (inputEmail === '' || inputPassword === '' || inputName === '' || inputPasswordRepeat === '') {
-        alert.text('Preencha todos os campos!');
-        alert.css('display', 'block');
-    } else if (inputName.length < 4) {
-        alert.text('Nome inválido!');
-        alert.css('display', 'block');
-    } else if (inputPassword.length < 4) {
-        alert.text('Sua senha deve ter ao menos 4 caracteres!');
-        alert.css('display', 'block');
-    } else if (inputPassword !== inputPasswordRepeat) {
-        alert.text('Senhas não conferem!');
-        alert.css('display', 'block');
-    } else { ok = true }
-
-    if (ok) {
+    if (email === '' || password === '' || fullName === '' || repeatPassword === '') {
+        errorAlert.text('Campos inválidos');
+        errorAlert.css('display', 'block');
+    } else if (password.length < 4) {
+        errorAlert.text('Senha deve possuir ao menos 4 caracteres');
+        errorAlert.css('display', 'block');
+    } else if (password !== repeatPassword) {
+        errorAlert.text('Senhas não conferem');
+        errorAlert.css('display', 'block');
+    } else {
         $.ajax({
             method: "POST",
             url: "/user",
             data: {
-                fullName: inputName,
-                email: inputEmail,
-                password: inputPassword,
-                repeatPassword: inputPasswordRepeat
+                fullName,
+                email,
+                password,
+                repeatPassword
             }
-        }).done(response => {
-            if (response.error === true) {
-                alert.text(response.status);
-                sucessAlert.css('display', 'none');
-                alert.css('display', 'block');
-            }
-
-            if (response.error === false) {
-                alert.css('display', 'none');
-                sucessAlert.text('Cadastro feito com sucesso!');
-                sucessAlert.css('display', 'block');
-                $('#full_name').val(''); $('#emailregister').val(''); $('#passwordregister').val(''); $('#repeatpassword').val('');
-            }
+        }).done(() => {
+            errorAlert.css('display', 'none');
+            sucessAlert.text('Cadastro feito com sucesso!');
+            sucessAlert.css('display', 'block');
+            $('#full-name').val('');
+            $('#email-register').val('');
+            $('#password-register').val('');
+            $('#repeat-password').val('');
+        }).fail(data => {
+            errorAlert.text(data.responseJSON.message.replace('Error: ', ''));
+            sucessAlert.css('display', 'none');
+            errorAlert.css('display', 'block');
         });
     }
 

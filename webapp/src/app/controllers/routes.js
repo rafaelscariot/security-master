@@ -11,7 +11,7 @@ routes = app => {
             const userIdPromise = getUserId(token);
 
             await userIdPromise.then(v => {
-                const userId = v.data.status;
+                const userId = v.data.userId;
 
                 UserModel.findById(userId, (err, docs) => {
                     if (err) {
@@ -44,7 +44,7 @@ routes = app => {
             let cryptHash = bcrypt.hashSync(newPassword, 10);
 
             await userIdPromise.then(v => {
-                const userId = v.data.status;
+                const userId = v.data.userId;
 
                 const update = { fullName: name, password: cryptHash, email };
 
@@ -77,7 +77,7 @@ routes = app => {
                 const userIdPromise = getUserId(token);
 
                 await userIdPromise.then(v => {
-                    const userId = v.data.status;
+                    const userId = v.data.userId;
 
                     DeviceModel.create({
                         userId,
@@ -105,7 +105,7 @@ routes = app => {
             const userIdPromise = getUserId(token);
 
             await userIdPromise.then(v => {
-                const userId = v.data.status;
+                const userId = v.data.userId;
 
                 DeviceModel.find({ userId }, (err, docs) => {
                     if (err) {
