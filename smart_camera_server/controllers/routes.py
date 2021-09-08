@@ -1,13 +1,12 @@
-from flask import Blueprint, Response, request
-from controllers.SmartCamera import SmartCamera
+from flask import Blueprint, jsonify
 import cv2
 
-REQUEST_API = Blueprint('request_api', __name__)
+ROUTES = Blueprint('routes', __name__, static_folder='static')
 
 
 def get_blueprint():
     """Return the blueprint for the main app module"""
-    return REQUEST_API
+    return ROUTES
 
 
 def gen(camera):
@@ -21,8 +20,11 @@ def gen(camera):
         )
 
 
-@REQUEST_API.route('/monitoring')
-def monitoring():
-    userId = request.args.get('userId', default='*', type=str)
-    smart_camera = SmartCamera(userId)
-    return Response(gen(smart_camera), mimetype='multipart/x-mixed-replace; boundary=frame')
+@ROUTES.route('/', methods=['GET'])
+def home():
+    return jsonify({'message': 'API is online'}), 200
+
+
+# @ROUTES.route('/monitoring', methods=['GET'])
+# def monitoring():
+    # return response(gen(smart_camera), mimetype='multipart/x-mixed-replace; boundary=frame')

@@ -1,7 +1,7 @@
 import cv2
 import time
 
-class Record:
+class RecordVideoService:
     def __init__(self, capture):
         self.capture = capture
         self.w = int(self.capture.get(cv2.CAP_PROP_FRAME_WIDTH))

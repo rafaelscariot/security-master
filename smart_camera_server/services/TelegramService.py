@@ -4,7 +4,7 @@ import os
 import sqlite3
 import datetime
 
-class Bot:
+class TelegramService:
     def __init__(self):
         self.token = '1448597689:AAGmz64iJBaYACm-M8xXT7rFOff4YNFEcbk'
 

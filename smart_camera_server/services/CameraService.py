@@ -1,7 +1,10 @@
 from controllers.Bot import Bot
-import cv2, sqlite3, time
+import cv2
+import sqlite3
+import time
 
-class SmartCamera:
+
+class CameraService:
     def __init__(self, userId):
         self.chatId = [],
         self.userId = userId
@@ -17,7 +20,7 @@ class SmartCamera:
                 else:
                     for number in self.chatId:
                         self.telegram_notification(frame, number, self.userId)
-                    
+
                     time.sleep(30)
 
             _, jpeg = cv2.imencode('.jpg', frame)
@@ -44,11 +47,12 @@ class SmartCamera:
         wh_ratio = in_width / float(in_height)
 
         net = cv2.dnn.readNetFromCaffe(
-            'static/models/MobileNetSSD_deploy.prototxt', 
+            'static/models/MobileNetSSD_deploy.prototxt',
             'static/models/MobileNetSSD_deploy.caffemodel'
         )
 
-        blob = cv2.dnn.blobFromImage(frame, 0.007843, (in_width, in_height), 127.5)
+        blob = cv2.dnn.blobFromImage(
+            frame, 0.007843, (in_width, in_height), 127.5)
         net.setInput(blob)
         detections = net.forward()
 
@@ -75,7 +79,7 @@ class SmartCamera:
 
             if confidence > 0.8:
                 class_id = int(detections[0, 0, i, 1])
-                
+
                 if class_id == 15:
                     return True
                 else:
@@ -85,7 +89,7 @@ class SmartCamera:
 
                     # print('[INFO] Converting video...')
                     # os.system('ffmpeg -i output.mp4 -vcodec libx264 detection.mp4')
-                    
+
                     # f = open('video_name.txt', 'r')
                     # name = f.readline()
                     # video_name = int(name) + 1
