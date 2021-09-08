@@ -3,24 +3,29 @@ const mongoose = require('mongoose');
 const RegionsSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     description: {
         type: String,
         required: true,
     },
-    hour: {
+    startTime: {
+        type: String,
+        required: true
+    },
+    endTime: {
         type: String,
         required: true
     },
     ipCam: {
         type: String,
-        required: true
-    },
-    userId: {
-        type: Integer,
         required: true,
         unique: true
+    },
+    userId: {
+        type: String,
+        required: true
     }
 });
 

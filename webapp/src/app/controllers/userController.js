@@ -23,8 +23,6 @@ userController = app => {
             res.status(400).send({ message: String(err) });
         }
     });
-
-    
 }
 
 module.exports = userController;

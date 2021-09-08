@@ -12,7 +12,7 @@ $.ajax({
     inputName.val(data.fullName);
     inputPassword.val(data.password);
 }).fail(data => {
-    console.log(data.responseJSON.message.replace('Error: ', ''));
+    console.log(data.responseJSON.message.replace('Error: Error: ', ''));
 });
 
 // update user
@@ -54,7 +54,7 @@ $('#btnmodal').click(() => {
             modalPassword = '';
         }).fail(data => {
             modalAlertSuccess.css('display', 'none');
-            modalAlertError.text(data.responseJSON.message.replace('Error: ', ''));
+            modalAlertError.text(data.responseJSON.message.replace('Error: Error: ', ''));
             modalAlertError.css('display', 'block');
         });
     }
@@ -122,7 +122,7 @@ $.ajax({
         divDevices.appendChild(tr);
     });
 }).fail(data => {
-    console.log(data.responseJSON.message.replace('Error: ', ''));
+    console.log(data.responseJSON.message.replace('Error: Error: ', ''));
 });
 
 // delete device

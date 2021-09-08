@@ -1,4 +1,5 @@
-let xhr = new XMLHttpRequest();
+let errorAlert = $('#alert-error');
+let successAlert = $('#alert-success');
 
 $('#btnRegister').click(() => {
     const region = $('#inputRegion').val();
@@ -7,27 +8,32 @@ $('#btnRegister').click(() => {
     const startTime = $('#inputStartTime').val();
     const endTime = $('#inputEndTime').val();
 
-    xhr.open("POST", 'http://localhost:3000/region', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-        token: localStorage.getItem('JWT'),
-        region,
-        description,
-        ipCam,
-        startTime,
-        endTime
-    }));
-
-    xhr.onreadystatechange = function () {
-        if (this.readyState != 4) return;
-
-        const data = this.responseText;
-        console.log(data);
-
-        if (this.status === 200) {
-            console.log('cadastrou')
-        } else {
-            console.log('erro')
-        }
-    };
+    if (region === '' || description === '' || ipCam === '' || startTime === '' || endTime === '') {
+        successAlert.css('display', 'none');
+        errorAlert.text('Campos inválidos');
+        errorAlert.css('display', 'block');
+    } else {
+        $.ajax({
+            method: "POST",
+            url: '/region',
+            data: {
+                token: localStorage.getItem('JWT'),
+                region,
+                description,
+                ipCam,
+                startTime,
+                endTime
+            }
+        }).done(() => {
+            errorAlert.css('display', 'none');
+            successAlert.text('Região cadastrada');
+            successAlert.css('display', 'block');
+            region = ''; description = ''; ipCam = ''; startTime = ''; endTime = '';
+        }).fail(data => {
+            console.log(data)
+            successAlert.css('display', 'none');
+            errorAlert.text(data.responseJSON.message.replace('Error: Error: ', ''));
+            errorAlert.css('display', 'block');
+        });
+    }
 });

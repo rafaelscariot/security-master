@@ -18,7 +18,7 @@ class DeviceService {
 
             const userIdPromise = getUserId(token);
 
-            await userIdPromise.then(user => {
+            return await userIdPromise.then(user => {
                 const userId = user.data.userId;
 
                 DeviceModel.create({
@@ -26,7 +26,7 @@ class DeviceService {
                     chatId,
                     surname
                 }).then(() => {
-                    return { message: 'OK' };
+                    console.log(`Created device ${chatId}`);
                 }).catch(error => {
                     throw new Error(error);
                 });
@@ -64,8 +64,6 @@ class DeviceService {
                 if (error) {
                     throw new Error(error);
                 }
-
-                return { message: 'OK' };
             });
         } catch (err) {
             throw new Error(err);

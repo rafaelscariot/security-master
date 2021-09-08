@@ -1,7 +1,7 @@
 templateController = app => {
     app.get('/', async (req, res) => {
         try {
-            res.marko(require('../views/home/home.marko'));
+            res.marko(require('../views/home.marko'));
         } catch (err) {
             res.status(400).send({ error: err });
         }

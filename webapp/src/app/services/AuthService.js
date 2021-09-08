@@ -57,13 +57,15 @@ class AuthService {
 
             let cryptHash = bcrypt.hashSync(password, 10);
 
-            await UserModel.create({
+            return await UserModel.create({
                 fullName,
                 email,
                 password: cryptHash
+            }).then(() => {
+                console.log(`Created user ${email}`);
+            }).catch(error => {
+                throw new Error(error);
             });
-
-            return { message: 'OK' };
         } catch (err) {
             throw new Error(err);
         }
