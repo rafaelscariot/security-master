@@ -1,63 +1,27 @@
-const UserModel = require('../models/User');
 const DeviceModel = require('../models/Device');
+const UserService = require('../services/UserService');
 const getUserId = require('../public/js/getUserId');
-const bcrypt = require('bcrypt');
 
 routes = app => {
     app.get('/user/:token', async (req, res) => {
         try {
             const { token } = req.params;
-
-            const userIdPromise = getUserId(token);
-
-            await userIdPromise.then(v => {
-                const userId = v.data.userId;
-
-                UserModel.findById(userId, (err, docs) => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.send({
-                            'email': docs.email,
-                            'fullName': docs.fullName,
-                            'password': docs.password
-                        })
-                    }
-                }).select('+password');
-            });
+            const response = await new UserService().userById(token);
+            res.status(200).send(response);
         } catch (err) {
-            console.log('[SEARCH USER ERROR] ' + err);
-            return res.status(400).send({ error: err });
+            console.log('[USER BY ID ERROR] ' + err);
+            res.status(404).send({ message: String(err) });
         }
     });
 
     app.put('/user', async (req, res) => {
         try {
             const { token, newPassword, name, email } = req.body;
-
-            if (name === '' || newPassword === '' || email === '') {
-                res.status(404).send({});
-            }
-
-            const userIdPromise = getUserId(token);
-
-            let cryptHash = bcrypt.hashSync(newPassword, 10);
-
-            await userIdPromise.then(v => {
-                const userId = v.data.userId;
-
-                const update = { fullName: name, password: cryptHash, email };
-
-                UserModel.updateOne({ _id: userId }, update, { new: true }, (err, doc) => {
-                    if (err)
-                        console.log(err);
-                    else
-                        res.send({ 'status': 200 });
-                });
-            });
+            const response = await new UserService().update(token, newPassword, name, email);
+            res.status(200).send(response);
         } catch (err) {
-            console.log('[CHANGE USER INFORMATION ERROR] ' + err);
-            return res.status(400).send({ error: err });
+            console.log('[UPDATE USER ERROR] ' + err);
+            res.status(400).send({ message: String(err) });
         }
     });
 

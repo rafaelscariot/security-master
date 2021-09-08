@@ -7,6 +7,9 @@ $('#form-login').submit(event => {
     if (email === '' || password === '') {
         alert.text('E-mail ou senha incorretos');
         alert.css('display', 'block');
+    } else if (!validateEmail(email)) {
+        alert.text('E-mail inválido');
+        alert.css('display', 'block');
     } else {
         $.ajax({
             method: "POST",
@@ -39,6 +42,9 @@ $('#form-register').submit(event => {
 
     if (email === '' || password === '' || fullName === '' || repeatPassword === '') {
         errorAlert.text('Campos inválidos');
+        errorAlert.css('display', 'block');
+    } else if (!validateEmail(email)) {
+        errorAlert.text('E-mail inválido');
         errorAlert.css('display', 'block');
     } else if (password.length < 4) {
         errorAlert.text('Senha deve possuir ao menos 4 caracteres');
@@ -119,3 +125,8 @@ $('#form-register').submit(event => {
     navbarCollapse();
     $(window).scroll(navbarCollapse);
 })(jQuery);
+
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}

@@ -4,22 +4,58 @@ const inputPassword = $('#inputPassword');
 const modalEmail = $('#modalEmail');
 
 // get user informations
-let xhr = new XMLHttpRequest();
-xhr.open("GET", `http://localhost:3000/user/${localStorage.getItem('JWT')}`, true);
-xhr.setRequestHeader('Content-Type', 'application/json');
-xhr.send();
+$.ajax({
+    method: "GET",
+    url: `/user/${localStorage.getItem('JWT')}`
+}).done(data => {
+    inputEmail.val(data.email);
+    inputName.val(data.fullName);
+    inputPassword.val(data.password);
+}).fail(data => {
+    console.log(data.responseJSON.message.replace('Error: ', ''));
+});
 
-xhr.onreadystatechange = function () {
-    if (this.readyState != 4) return;
+// update user
+$('#btnmodal').click(() => {
+    const modalAlertError = $('#modalAlertError');
+    const modalAlertSuccess = $('#modalAlertSuccess');
+    const modalName = $('#modalName').val();
+    const modalPassword = $('#modalPassword').val();
+    const modalEmail = $('#modalEmail').val();
 
-    if (this.status === 200) {
-        let data = JSON.parse(this.responseText);
-
-        inputEmail.val(data.email);
-        inputName.val(data.fullName);
-        inputPassword.val(data.password);
+    if (modalPassword.length < 4) {
+        modalAlertSuccess.css('display', 'none');
+        modalAlertError.text('Senha deve possuir ao menos 4 caracteres');
+        modalAlertError.css('display', 'block');
+    } else if (!validateEmail(modalEmail)) {
+        modalAlertSuccess.css('display', 'none');
+        modalAlertError.text('E-mail inválido');
+        modalAlertError.css('display', 'block');
+    } else if (modalName === '' || modalPassword === '') {
+        modalAlertError.text('Campos inválidos');
+        modalAlertError.css('display', 'block');
+    } else {
+        $.ajax({
+            method: "PUT",
+            url: '/user',
+            data: {
+                token: localStorage.getItem('JWT'),
+                name: modalName,
+                newPassword: modalPassword,
+                email: modalEmail
+            }
+        }).done(() => {
+            modalAlertError.css('display', 'none')
+            modalAlertSuccess.text('Alterações salvas!');
+            modalAlertSuccess.css('display', 'block');
+            inputName.val(modalName);
+        }).fail(data => {
+            modalAlertSuccess.css('display', 'none');
+            modalAlertError.text(data.responseJSON.message.replace('Error: ', ''));
+            modalAlertError.css('display', 'block');
+        });
     }
-};
+});
 
 // get devices
 let xhrDevice = new XMLHttpRequest();
@@ -105,63 +141,7 @@ $('#btnChatID').click(() => {
     }
 });
 
-// update user
-$('#btnmodal').click(() => {
-    let xhr = new XMLHttpRequest();
-    const modalAlertError = $('#modalAlertError');
-    const modalAlertSuccess = $('#modalAlertSuccess');
-    const modalName = $('#modalName').val();
-    const modalPassword = $('#modalPassword').val();
-    const modalEmail = $('#modalEmail').val();
 
-    let ok = true;
-
-    if (modalPassword.length < 4) {
-        modalAlertSuccess.css('display', 'none');
-        modalAlertError.text('Sua senha deve ter ao menos 4 caracteres!');
-        modalAlertError.css('display', 'block');
-        ok = false;
-    }
-
-    if (!validateEmail(modalEmail)) {
-        modalAlertSuccess.css('display', 'none');
-        modalAlertError.text('E-mail inválido!');
-        modalAlertError.css('display', 'block');
-        ok = false;
-    }
-
-    if (modalName === '' || modalPassword === '') {
-        modalAlertError.text('Informações inválidas. Tente novamente!');
-        modalAlertError.css('display', 'block');
-        ok = false;
-    }
-
-    if (ok) {
-        xhr.open("PUT", 'http://localhost:3000/user', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({
-            token: localStorage.getItem('JWT'),
-            name: modalName,
-            newPassword: modalPassword,
-            email: modalEmail
-        }));
-
-        xhr.onreadystatechange = function () {
-            if (this.readyState != 4) return;
-
-            if (this.status === 200) {
-                modalAlertError.css('display', 'none')
-                modalAlertSuccess.text('Alterações salvas!');
-                modalAlertSuccess.css('display', 'block');
-                inputName.val(modalName);
-            } else {
-                modalAlertSuccess.css('display', 'none');
-                modalAlertError.text('Ocorreu um erro inesperado. Tente novamente!');
-                modalAlertError.css('display', 'block');
-            }
-        };
-    }
-});
 
 // close modal
 $('.closeModalBtn').click(() => {

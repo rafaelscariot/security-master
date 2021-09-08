@@ -63,7 +63,7 @@ class AuthService {
                 password: cryptHash
             });
 
-            return { message: 'Created user' };
+            return { message: 'OK' };
         } catch (err) {
             throw new Error('Um erro inesperado ocorreu');
         }
