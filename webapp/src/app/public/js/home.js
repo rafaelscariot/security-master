@@ -23,7 +23,7 @@ $('#form-login').submit(event => {
             localStorage.setItem('userName', data.fullName);
             window.location.replace("http://localhost:3000/securitymaster/home");
         }).fail(data => {
-            alert.text(data.responseJSON.message.replace('Error: ', ''));
+            alert.text(data.responseJSON.message.replace('Error: Error: ', ''));
             alert.css('display', 'block');
         });
     }
@@ -71,7 +71,7 @@ $('#form-register').submit(event => {
             $('#password-register').val('');
             $('#repeat-password').val('');
         }).fail(data => {
-            errorAlert.text(data.responseJSON.message.replace('Error: ', ''));
+            errorAlert.text(data.responseJSON.message.replace('Error: Error: ', ''));
             sucessAlert.css('display', 'none');
             errorAlert.css('display', 'block');
         });

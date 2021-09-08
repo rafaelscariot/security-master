@@ -33,7 +33,7 @@ class AuthService {
                 };
             }
         } catch (err) {
-            throw new Error('Um erro inesperado ocorreu');
+            throw new Error(err);
         }
     }
 
@@ -65,7 +65,7 @@ class AuthService {
 
             return { message: 'OK' };
         } catch (err) {
-            throw new Error('Um erro inesperado ocorreu');
+            throw new Error(err);
         }
     }
 
@@ -104,7 +104,7 @@ class AuthService {
                 throw new Error('Invalid token');
             }
         } catch (err) {
-            throw new Error('Um erro inesperado ocorreu');
+            throw new Error(err);
         }
     }
 }

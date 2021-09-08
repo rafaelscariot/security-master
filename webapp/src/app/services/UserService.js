@@ -2,7 +2,7 @@ const UserModel = require('../models/User');
 const getUserId = require('../public/js/getUserId');
 const bcrypt = require('bcrypt');
 
-class AuthService {
+class UserService {
     async userById(token) {
         try {
             const userIdPromise = getUserId(token);
@@ -17,7 +17,7 @@ class AuthService {
                 });
             });
         } catch (err) {
-            throw new Error('Um erro inesperado ocorreu');
+            throw new Error(err);
         }
     }
 
@@ -26,16 +26,16 @@ class AuthService {
             throw new Error('Campos inválidos');
         }
 
+        if (await UserModel.findOne({ email })) {
+            throw new Error(`E-mail ${email} já cadastrado`);
+        }
+
         const userIdPromise = getUserId(token);
 
         let cryptHash = bcrypt.hashSync(newPassword, 10);
 
         return await userIdPromise.then(user => {
             const userId = user.data.userId;
-
-            if (UserModel.findById({ userId })) {
-                throw new Error('E-mail já cadastrado');
-            }
 
             const updateObject = { fullName: name, password: cryptHash, email };
 
@@ -48,4 +48,4 @@ class AuthService {
     }
 }
 
-module.exports = AuthService;
+module.exports = UserService;

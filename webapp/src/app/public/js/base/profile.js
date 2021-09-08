@@ -3,7 +3,7 @@ const inputName = $('#inputName');
 const inputPassword = $('#inputPassword');
 const modalEmail = $('#modalEmail');
 
-// get user informations
+// get user
 $.ajax({
     method: "GET",
     url: `/user/${localStorage.getItem('JWT')}`
@@ -49,6 +49,9 @@ $('#btnmodal').click(() => {
             modalAlertSuccess.text('Alterações salvas!');
             modalAlertSuccess.css('display', 'block');
             inputName.val(modalName);
+            modalName = '';
+            modalEmail = '';
+            modalPassword = '';
         }).fail(data => {
             modalAlertSuccess.css('display', 'none');
             modalAlertError.text(data.responseJSON.message.replace('Error: ', ''));
@@ -57,113 +60,88 @@ $('#btnmodal').click(() => {
     }
 });
 
-// get devices
-let xhrDevice = new XMLHttpRequest();
-xhrDevice.open("GET", `http://localhost:3000/device/${localStorage.getItem('JWT')}`, true);
-xhrDevice.setRequestHeader('Content-Type', 'application/json');
-xhrDevice.send();
-
-xhrDevice.onreadystatechange = function () {
-    if (this.readyState != 4) return;
-
-    if (this.status === 200) {
-        let data = JSON.parse(this.responseText);
-
-        let divDevices = document.querySelector('#devices');
-
-        data.forEach((e, index) => {
-            let tr = document.createElement('tr');
-            tr.id = index + 1;
-            tr.innerHTML = `
-                <th scope="row">${index + 1}</th>
-                <td>${e.surname}</td>
-                <td>${e.chatId}</td>
-                <td>
-                    <button onClick='deleteChatId(${index + 1}, ${e.chatId})' class='btn' style='color: white'>
-                        <i class="bi bi-x-circle"></i>
-                    </button>
-                </td>
-            `;
-
-            divDevices.appendChild(tr);
-        });
-    }
-};
-
-// register chatID
+// register device
 $('#btnChatID').click(() => {
-    let xhr = new XMLHttpRequest();
     const errorAlert = $('#chatIdError');
     const successAlert = $('#chatIdSuccess');
     let inputChatId = $('#modalChatID').val();
     let inputSurname = $('#modalSurname').val();
 
-    let ok = true;
-
     if (inputChatId.length === 0 || isNaN(inputChatId)) {
         successAlert.css('display', 'none');
-        errorAlert.text('Informe corretamente o Chat ID!');
+        errorAlert.text('Chat ID inválido');
         errorAlert.css('display', 'block');
-        ok = false;
-    }
-
-    if (inputSurname.length === 0) {
+    } else if (inputSurname.length === 0) {
         successAlert.css('display', 'none');
-        errorAlert.text('Informe corretamente o Apelido!');
+        errorAlert.text('Apelido inválido');
         errorAlert.css('display', 'block');
-        ok = false;
-    }
-
-    if (ok) {
-        xhr.open("POST", 'http://localhost:3000/chatId', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({
-            token: localStorage.getItem('JWT'),
-            chatId: inputChatId,
-            surname: inputSurname
-        }));
-
-        xhr.onreadystatechange = function () {
-            if (this.readyState != 4) return;
-
-            if (this.status === 200) {
-                errorAlert.css('display', 'none');
-                successAlert.text('Chat ID cadastrado!');
-                successAlert.css('display', 'block');
-                inputChatId = '';
-            } else {
-                successAlert.css('display', 'none');
-                errorAlert.text('Chat ID já cadastrado!');
-                errorAlert.css('display', 'block');
-                inputChatId = '';
+    } else {
+        $.ajax({
+            method: "POST",
+            url: '/device',
+            data: {
+                token: localStorage.getItem('JWT'),
+                chatId: inputChatId,
+                surname: inputSurname
             }
-        };
+        }).done(() => {
+            errorAlert.css('display', 'none');
+            successAlert.text('Chat ID cadastrado');
+            successAlert.css('display', 'block');
+            inputChatId = '';
+            inputSurname = '';
+        }).fail(data => {
+            successAlert.css('display', 'none');
+            errorAlert.text(data.responseJSON.message.replace('Error: Error: ', ''));
+            errorAlert.css('display', 'block');
+        });
     }
 });
 
+// get devices
+$.ajax({
+    method: "GET",
+    url: `/device/${localStorage.getItem('JWT')}`
+}).done(data => {
+    let divDevices = document.querySelector('#devices');
 
+    data.forEach((e, index) => {
+        let tr = document.createElement('tr');
+        tr.id = index + 1;
+        tr.innerHTML = `
+            <th scope="row">${index + 1}</th>
+            <td>${e.surname}</td>
+            <td>${e.chatId}</td>
+            <td>
+                <button onClick='deleteChatId(${index + 1}, ${e.chatId})' class='btn' style='color: white'>
+                    <i class="bi bi-x-circle"></i>
+                </button>
+            </td>
+        `;
+
+        divDevices.appendChild(tr);
+    });
+}).fail(data => {
+    console.log(data.responseJSON.message.replace('Error: ', ''));
+});
+
+// delete device
+const deleteChatId = ((index, chatId) => {
+    $.ajax({
+        method: "DELETE",
+        url: `/device/${chatId}`
+    }).done(() => {
+        tr = document.getElementById(index);
+        tr.remove();
+        window.location.replace('http://localhost:3000/securitymaster/profile');
+    }).fail(data => {
+        console.log(data.responseJSON.message.replace('Error: ', ''));
+    });
+});
 
 // close modal
 $('.closeModalBtn').click(() => {
     window.location.replace('http://localhost:3000/securitymaster/profile');
-});
-
-// delete chat id
-const deleteChatId = ((index, chatId) => {
-    let xhr = new XMLHttpRequest();
-    xhr.open("DELETE", `http://localhost:3000/device/${chatId}`, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send();
-
-    xhr.onreadystatechange = function () {
-        if (this.readyState != 4) return;
-
-        if (this.status === 200) {
-            tr = document.getElementById(index);
-            tr.remove();
-            window.location.replace('http://localhost:3000/securitymaster/profile');
-        }
-    };
 });
 
 function validateEmail(email) {

@@ -24,8 +24,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 // application routes
-require('../app/controllers/routes.js')(app);
-require('../app/controllers/templates.js')(app);
-require('../app/controllers/auth.js')(app);
+require('../app/controllers/deviceController.js')(app);
+require('../app/controllers/userController.js')(app);
+require('../app/controllers/templateController.js')(app);
+require('../app/controllers/authController.js')(app);
 
 module.exports = app;
