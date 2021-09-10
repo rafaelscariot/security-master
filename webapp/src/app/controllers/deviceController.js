@@ -4,7 +4,7 @@ deviceController = app => {
     app.get('/device/:token', async (req, res) => {
         try {
             const { token } = req.params;
-            const response = await new DeviceService().deviceById(token);
+            const response = await new DeviceService().search(token);
             res.status(200).send(response);
         } catch (error) {
             console.log(`DEVICE BY ID: ${error}`);

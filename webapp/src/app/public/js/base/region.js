@@ -37,3 +37,61 @@ $('#btnRegister').click(() => {
         });
     }
 });
+
+// get regions
+$.ajax({
+    method: "GET",
+    url: `/region/${localStorage.getItem('JWT')}`
+}).done(data => {
+    let divRegions = document.querySelector('#regions');
+
+    data.forEach((e, index) => {
+        let btn = document.createElement('button');
+        btn.addEventListener('click', () => {
+            $.ajax({
+                method: "DELETE",
+                url: `/region/${e.name}`
+            }).done(() => {
+                tr = document.getElementById(index + 1);
+                tr.remove();
+                window.location.replace('http://localhost:3000/securitymaster/region');
+            }).fail(data => {
+                console.log(data.responseJSON.message.replace('Error: ', ''));
+            });
+        });
+        btn.style.color = 'white';
+        btn.className = 'btn';
+        btn.innerHTML = '<i class="bi bi-x-circle"></i>';
+
+        let td = document.createElement('td');
+        td.appendChild(btn);
+
+        let tr = document.createElement('tr');
+        tr.id = index + 1;
+        tr.innerHTML = `
+            <th scope="row">${index + 1}</th>
+            <td>${e.name}</td>
+            <td>${e.description}</td>
+            <td>${e.startTime} - ${e.endTime}</td>
+        `;
+
+        tr.appendChild(td);
+        divRegions.appendChild(tr);
+    });
+}).fail(data => {
+    console.log(data.responseJSON.message.replace('Error: Error: ', ''));
+});
+
+// delete region
+const deleteRegion = ((index, name) => {
+    $.ajax({
+        method: "DELETE",
+        url: `/region/${name}`
+    }).done(() => {
+        tr = document.getElementById(index);
+        tr.remove();
+        window.location.replace('http://localhost:3000/securitymaster/region');
+    }).fail(data => {
+        console.log(data.responseJSON.message.replace('Error: ', ''));
+    });
+});

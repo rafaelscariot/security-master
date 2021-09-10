@@ -67,7 +67,7 @@ $('#btnChatID').click(() => {
     let inputChatId = $('#modalChatID').val();
     let inputSurname = $('#modalSurname').val();
 
-    if (inputChatId.length === 0 || isNaN(inputChatId)) {
+    if (inputChatId.length !== 9 || isNaN(inputChatId)) {
         successAlert.css('display', 'none');
         errorAlert.text('Chat ID inválido');
         errorAlert.css('display', 'block');

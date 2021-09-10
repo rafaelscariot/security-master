@@ -36,7 +36,7 @@ class DeviceService {
         }
     }
 
-    async deviceById(token) {
+    async search(token) {
         try {
             const userIdPromise = getUserId(token);
 

@@ -15,6 +15,10 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
     <link rel="stylesheet" href="/static/css/base/main.css" />
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico" />
   </head>
@@ -98,41 +102,57 @@
           </div>
         </nav>
         
-      <!-- PAGE CONTENT -->
-      <div id="alert-error" style="display: none" class="alert alert-danger" role="alert">
-        This is a danger alert—check it out!
-      </div>
-      <div id="alert-success" style="display: none" class="alert alert-success" role="alert">
-        This is a danger alert—check it out!
-      </div>
-      <form>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputRegion">Região</label>
-            <input type="text" class="form-control" id="inputRegion" placeholder="Região">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputDescription">Descrição</label>
-            <input type="text" class="form-control" id="inputDescription" placeholder="Descrição">
-          </div>
+        <!-- PAGE CONTENT -->
+        <div id="alert-error" style="display: none" class="alert alert-danger" role="alert">
+          This is a danger alert—check it out!
         </div>
-        <div class="form-group">
-          <label for="inputIpCam">Endereço da câmera IP</label>
-          <input type="text" class="form-control" id="inputIpCam" placeholder="Endereço da câmera IP">
+        <div id="alert-success" style="display: none" class="alert alert-success" role="alert">
+          This is a danger alert—check it out!
         </div>
-        <p style="font-size: 1.5em; text-align: center">Horário de monitoramento</p>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="startTime">Início</label>
-            <input type="time" class="form-control" id="inputStartTime" name="startTime" placeholder="Hora inicial">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputRegion">Região</label>
+              <input type="text" class="form-control" id="inputRegion" placeholder="Região">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputDescription">Descrição</label>
+              <input type="text" class="form-control" id="inputDescription" placeholder="Descrição">
+            </div>
           </div>
-          <div class="form-group col-md-6">
-            <label for="endTime">Término</label>
-            <input type="time" class="form-control" id="inputEndTime" name="endTime" placeholder="Hora de término">
+          <div class="form-group">
+            <label for="inputIpCam">Endereço da câmera IP</label>
+            <input type="text" class="form-control" id="inputIpCam" placeholder="Endereço da câmera IP">
           </div>
-        </div>
-        <button type="button" id="btnRegister" class="btn btn-primary">Cadastrar</button>
-      </form>
+          <p style="font-size: 1.5em; text-align: center">Horário de monitoramento</p>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="startTime">Início</label>
+              <input type="time" class="form-control" id="inputStartTime" name="startTime" placeholder="Hora inicial">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="endTime">Término</label>
+              <input type="time" class="form-control" id="inputEndTime" name="endTime" placeholder="Hora de término">
+            </div>
+          </div>
+          <button type="button" id="btnRegister" class="btn btn-primary">Cadastrar</button>
+        </form>
+
+        <hr />
+        <h4 class="mt-2" style="text-align: center">Minhas regiões de monitoramento</h4>
+        <table class="table table-striped table-dark mt-2">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Região</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Horário</th>
+              <th scope="col">Excluir</th>
+            </tr>
+          </thead>
+          <tbody id="regions" />
+        </table>
+
       </div>
     </div>
 

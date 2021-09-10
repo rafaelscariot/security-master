@@ -11,6 +11,28 @@ regionController = app => {
             res.status(400).send({ message: String(error) });
         }
     });
+
+    app.get('/region/:token', async (req, res) => {
+        try {
+            const { token } = req.params;
+            const response = await new RegionService().search(token);
+            res.status(200).send(response);
+        } catch (error) {
+            console.log(`SEARCH REGION: ${error}`);
+            res.status(400).send({ message: String(error) });
+        }
+    });
+
+    app.delete('/region/:name', async (req, res) => {
+        try {
+            const { name } = req.params;
+            const response = await new RegionService().delete(name);
+            res.status(200).send(response);
+        } catch (error) {
+            console.log(`DELETE REGION: ${error}`);
+            res.status(400).send({ message: String(error) });
+        }
+    });
 }
 
 module.exports = regionController;

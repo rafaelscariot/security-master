@@ -38,6 +38,40 @@ class RegionService {
             throw new Error(err);
         }
     }
+
+    async search(token) {
+        try {
+            const userIdPromise = getUserId(token);
+
+            return await userIdPromise.then(user => {
+                const userId = user.data.userId;
+
+                return RegionModel.find({ userId }, (err, docs) => {
+                    if (err) {
+                        throw new Error(err);
+                    }
+                });
+            });
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async delete(name) {
+        try {
+            if (!await RegionModel.findOne({ name })) {
+                throw new Error(`Região ${name} não cadastrada`);
+            }
+
+            return RegionModel.deleteOne({ name }, error => {
+                if (error) {
+                    throw new Error(error);
+                }
+            });
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
 }
 
 module.exports = RegionService;

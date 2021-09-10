@@ -1,5 +1,4 @@
 const UserService = require('../services/UserService');
-const DeviceService = require('../services/DeviceService');
 
 userController = app => {
     app.get('/user/:token', async (req, res) => {
@@ -8,7 +7,7 @@ userController = app => {
             const response = await new UserService().userById(token);
             res.status(200).send(response);
         } catch (err) {
-            console.log(`USER BY ID ERROR: ${err}`);
+            console.log(`SEARCH USER: ${err}`);
             res.status(404).send({ message: String(err) });
         }
     });
@@ -19,7 +18,7 @@ userController = app => {
             const response = await new UserService().update(token, newPassword, name, email);
             res.status(200).send(response);
         } catch (err) {
-            console.log(`UPDATE USER ERROR: ${err}`);
+            console.log(`UPDATE USER: ${err}`);
             res.status(400).send({ message: String(err) });
         }
     });
