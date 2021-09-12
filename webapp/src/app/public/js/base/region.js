@@ -29,7 +29,7 @@ $('#btnRegister').click(() => {
             successAlert.text('Região cadastrada');
             successAlert.css('display', 'block');
             region = ''; description = ''; ipCam = ''; startTime = ''; endTime = '';
-            window.location.replace('http://localhost:3000/securitymaster/profile');
+            window.location.replace('http://localhost:3000/securitymaster/region');
         }).fail(data => {
             console.log(data)
             successAlert.css('display', 'none');
@@ -81,18 +81,4 @@ $.ajax({
     });
 }).fail(data => {
     console.log(data.responseJSON.message.replace('Error: Error: ', ''));
-});
-
-// delete region
-const deleteRegion = ((index, name) => {
-    $.ajax({
-        method: "DELETE",
-        url: `/region/${name}`
-    }).done(() => {
-        tr = document.getElementById(index);
-        tr.remove();
-        window.location.replace('http://localhost:3000/securitymaster/region');
-    }).fail(data => {
-        console.log(data.responseJSON.message.replace('Error: ', ''));
-    });
 });
