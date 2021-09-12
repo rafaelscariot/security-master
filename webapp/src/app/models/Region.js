@@ -4,7 +4,6 @@ const RegionsSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true
     },
     description: {
         type: String,
@@ -21,7 +20,6 @@ const RegionsSchema = new mongoose.Schema({
     ipCam: {
         type: String,
         required: true,
-        unique: true
     },
     userId: {
         type: String,

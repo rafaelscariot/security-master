@@ -2,11 +2,11 @@ let errorAlert = $('#alert-error');
 let successAlert = $('#alert-success');
 
 $('#btnRegister').click(() => {
-    const region = $('#inputRegion').val();
-    const description = $('#inputDescription').val();
-    const ipCam = $('#inputIpCam').val();
-    const startTime = $('#inputStartTime').val();
-    const endTime = $('#inputEndTime').val();
+    let region = $('#inputRegion').val();
+    let description = $('#inputDescription').val();
+    let ipCam = $('#inputIpCam').val();
+    let startTime = $('#inputStartTime').val();
+    let endTime = $('#inputEndTime').val();
 
     if (region === '' || description === '' || ipCam === '' || startTime === '' || endTime === '') {
         successAlert.css('display', 'none');
@@ -29,6 +29,7 @@ $('#btnRegister').click(() => {
             successAlert.text('Região cadastrada');
             successAlert.css('display', 'block');
             region = ''; description = ''; ipCam = ''; startTime = ''; endTime = '';
+            window.location.replace('http://localhost:3000/securitymaster/profile');
         }).fail(data => {
             console.log(data)
             successAlert.css('display', 'none');
