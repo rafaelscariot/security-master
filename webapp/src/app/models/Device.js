@@ -7,7 +7,6 @@ const DeviceSchema = new mongoose.Schema({
     },
     chatId: {
         type: String,
-        unique: true,
         required: true,
     },
     surname: {

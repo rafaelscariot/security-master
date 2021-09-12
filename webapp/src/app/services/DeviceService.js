@@ -8,28 +8,29 @@ class DeviceService {
                 throw new Error(`Chat ID ${chatId} ou apelido ${surname} inválido`);
             }
 
-            if (await DeviceModel.findOne({ chatId })) {
-                throw new Error(`Chat ID ${chatId} já cadastrado`);
-            }
-
-            if (await DeviceModel.findOne({ surname })) {
-                throw new Error(`Apelido ${surname} já cadastrado`);
-            }
-
             const userIdPromise = getUserId(token);
 
             return await userIdPromise.then(user => {
                 const userId = user.data.userId;
 
-                DeviceModel.create({
-                    userId,
-                    chatId,
-                    surname
-                }).then(() => {
-                    console.log(`Created device ${chatId}`);
-                }).catch(error => {
-                    throw new Error(error);
-                });
+                return DeviceModel.find({ userId })
+                    .then(devices => {
+                        devices.forEach(device => {
+                            if (device.chatId === chatId) {
+                                throw new Error(`Chat ID ${chatId} já cadastrado`);
+                            }
+                        });
+
+                        DeviceModel.create({
+                            userId,
+                            chatId,
+                            surname
+                        }).then(() => {
+                            console.log(`Created device ${chatId}`);
+                        }).catch(error => {
+                            throw new Error(error);
+                        });
+                    });
             });
         } catch (err) {
             throw new Error(err);
