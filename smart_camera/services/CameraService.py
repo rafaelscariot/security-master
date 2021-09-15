@@ -2,13 +2,16 @@ import cv2
 import numpy as np
 import sys
 
-print(sys.argv[1])
+USER_ID = sys.argv[1]
+REGION_NAME = sys.argv[2]
+IP_CAM = sys.argv[3]
+REGION_END_TIME = sys.argv[4]
 
 
 class CameraService:
-    def start(self, ip_cam):
+    def start(self):
         try:
-            capture = cv2.VideoCapture(ip_cam)
+            capture = cv2.VideoCapture(IP_CAM)
 
             while True:
                 has_frame, frame = capture.read()
@@ -53,3 +56,6 @@ class CameraService:
 
         except Exception as error:
             return error
+
+
+CameraService().start()

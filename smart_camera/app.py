@@ -1,21 +1,31 @@
 import requests
 import subprocess
+from datetime import datetime
+
+
+def regions_request(url):
+    return requests.get(url).json()
 
 
 def main():
-    regions_request = requests.get('http://localhost:3000/region')
-    regions = regions_request.json()
+    try:
+        regions = regions_request('http://localhost:3000/region')
 
-    devices_request = requests.get('http://localhost:3000/region')
-    devices = regions_request.json()
+        if regions == []:
+            print("[INFO] Nothing to monitor...")
+        else:
+            for region in regions:
+                region_start_time = region['startTime'].replace(':', '.')
+                region_end_time = region['endTime'].replace(':', '.')
 
-    if regions == []:
-        print('Nenhuma região cadastrada')
-    else:
-        for region in regions:
-            print(region)
-            subprocess.run(["python.exe", "services/CameraService.py", region])
+                current_hour = f'{datetime.now().hour}.{datetime.now().minute}'
+
+                if current_hour >= region_start_time:
+                    subprocess.run(["python.exe", "services/CameraService.py",
+                                    region['userId'], region['name'], region['ipCam'], region_end_time])
+
+    except Exception as error:
+        print(error)
 
 
-if __name__ == '__main__':
-    main()
+main()
