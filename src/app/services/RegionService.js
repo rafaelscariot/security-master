@@ -44,7 +44,7 @@ class RegionService {
         }
     }
 
-    async search(token) {
+    async searchById(token) {
         try {
             const userIdPromise = getUserId(token);
 
@@ -71,6 +71,18 @@ class RegionService {
             return RegionModel.deleteOne({ name }, error => {
                 if (error) {
                     throw new Error(error);
+                }
+            });
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async searchAll() {
+        try {
+            return RegionModel.find({}, (err, docs) => {
+                if (err) {
+                    throw new Error(err);
                 }
             });
         } catch (err) {

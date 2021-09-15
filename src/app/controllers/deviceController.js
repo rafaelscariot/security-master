@@ -4,7 +4,17 @@ deviceController = app => {
     app.get('/device/:token', async (req, res) => {
         try {
             const { token } = req.params;
-            const response = await new DeviceService().search(token);
+            const response = await new DeviceService().searchById(token);
+            res.status(200).send(response);
+        } catch (error) {
+            console.log(`DEVICE BY ID: ${error}`);
+            res.status(404).send({ message: String(error) });
+        }
+    });
+
+    app.get('/device', async (req, res) => {
+        try {
+            const response = await new DeviceService().searchAll();
             res.status(200).send(response);
         } catch (error) {
             console.log(`DEVICE BY ID: ${error}`);

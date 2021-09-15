@@ -15,7 +15,17 @@ regionController = app => {
     app.get('/region/:token', async (req, res) => {
         try {
             const { token } = req.params;
-            const response = await new RegionService().search(token);
+            const response = await new RegionService().searchById(token);
+            res.status(200).send(response);
+        } catch (error) {
+            console.log(`SEARCH REGION BY ID: ${error}`);
+            res.status(400).send({ message: String(error) });
+        }
+    });
+
+    app.get('/region', async (req, res) => {
+        try {
+            const response = await new RegionService().searchAll();
             res.status(200).send(response);
         } catch (error) {
             console.log(`SEARCH REGION: ${error}`);

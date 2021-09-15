@@ -37,7 +37,7 @@ class DeviceService {
         }
     }
 
-    async search(token) {
+    async searchById(token) {
         try {
             const userIdPromise = getUserId(token);
 
@@ -49,6 +49,18 @@ class DeviceService {
                         throw new Error(err);
                     }
                 });
+            });
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    async searchAll() {
+        try {
+            return DeviceModel.find({ userId }, (err, docs) => {
+                if (err) {
+                    throw new Error(err);
+                }
             });
         } catch (err) {
             throw new Error(err);

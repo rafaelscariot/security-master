@@ -1,20 +1,19 @@
 const mongoose = require('mongoose');
 
 const SuspectActivitieSchema = new mongoose.Schema({
-    videoSrc: {
+    type: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     ocurredDate: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        required: true
     },
     userId: {
-        type: Integer,
-        required: true,
-        unique: true
-    },
+        type: String,
+        required: true
+    }
 });
 
 const SuspectActivitie = mongoose.model('SuspectActivitie', SuspectActivitieSchema);
