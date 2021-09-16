@@ -16,12 +16,9 @@ class CameraService:
         try:
             capture = cv2.VideoCapture('src/services/bike.mp4')
 
-            while True:
-                current_hour = f'{datetime.now().hour}.{datetime.now().minute}'
+            current_hour = f'{datetime.now().hour}.{datetime.now().minute}'
 
-                if current_hour >= self.region_end_time:
-                    break
-
+            while current_hour <= self.region_end_time:
                 has_frame, frame = capture.read()
 
                 if not has_frame:
@@ -32,6 +29,8 @@ class CameraService:
                     if status_detection != False:
                         cv2.imwrite('src/services/temp_img.jpg', frame)
                         TelegramService().send_notification(status_detection, self.user_id)
+                
+                break
 
         except Exception as error:
             return error

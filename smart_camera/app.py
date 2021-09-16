@@ -1,6 +1,5 @@
 import requests
 import subprocess
-import time
 from datetime import datetime
 
 
@@ -14,6 +13,8 @@ class SecurityMaster():
                     print('[INFO] Nothing to monitor...')
                 else:
                     for region in regions:
+                        print(f'[INFO] Starting to monitor region {region["name"]}')
+
                         region_start_time = region['startTime'].replace(':', '.')
                         region_end_time = region['endTime'].replace(':', '.')
 
@@ -21,8 +22,7 @@ class SecurityMaster():
 
                         if current_hour >= region_start_time:
                             subprocess.run(["python.exe", "src/services/CameraService.py", region['userId'], region['name'], region['ipCam'], region_end_time])
-
-                time.sleep(1)
+                            
         except Exception as error:
             print(error)
 
