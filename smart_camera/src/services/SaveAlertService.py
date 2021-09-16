@@ -10,8 +10,6 @@ class SaveAlertService:
                 'occurredRegion': occurredRegion
             }
 
-            print('ASGFASGASGASGASG')
-
             alert_saved = requests.post('http://localhost:3000/activitie', data=data)
 
             if alert_saved.status_code != 200:
