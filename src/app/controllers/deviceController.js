@@ -12,12 +12,23 @@ deviceController = app => {
         }
     });
 
+    app.get('/device/surveillance/:userId', async (req, res) => {
+        try {
+            const { userId } = req.params;
+            const response = await new DeviceService().searchByUserId(userId);
+            res.status(200).send(response);
+        } catch (error) {
+            console.log(`DEVICE BY USER ID: ${error}`);
+            res.status(404).send({ message: String(error) });
+        }
+    });
+
     app.get('/device', async (req, res) => {
         try {
             const response = await new DeviceService().searchAll();
             res.status(200).send(response);
         } catch (error) {
-            console.log(`DEVICE BY ID: ${error}`);
+            console.log(`ALL DEVICES: ${error}`);
             res.status(404).send({ message: String(error) });
         }
     });

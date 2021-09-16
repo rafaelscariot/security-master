@@ -29,5 +29,6 @@ require('../app/controllers/regionController.js')(app);
 require('../app/controllers/userController.js')(app);
 require('../app/controllers/templateController.js')(app);
 require('../app/controllers/authController.js')(app);
+require('../app/controllers/suspectActivitieController.js')(app);
 
 module.exports = app;

@@ -2,14 +2,13 @@ import requests
 import subprocess
 import time
 from datetime import datetime
-from config import BASE_URL
 
 
 class SecurityMaster():
     def start(self):
         try:
             while True:
-                regions = self.regions(f'{BASE_URL}/region')
+                regions = self.regions('http://localhost:3000/region')
 
                 if regions == []:
                     print('[INFO] Nothing to monitor...')

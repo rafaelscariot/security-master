@@ -55,7 +55,7 @@ class DeviceService {
         }
     }
 
-    async searchAll() {
+    async searchByUserId(userId) {
         try {
             return DeviceModel.find({ userId }, (err, docs) => {
                 if (err) {

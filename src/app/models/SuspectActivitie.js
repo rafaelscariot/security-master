@@ -1,19 +1,22 @@
 const mongoose = require('mongoose');
 
 const SuspectActivitieSchema = new mongoose.Schema({
+    userId: {
+        type: String,
+        required: true
+    },
     type: {
         type: String,
         required: true
     },
-    ocurredDate: {
-        type: Date,
-        default: Date.now,
-        required: true
-    },
-    userId: {
+    occurredRegion: {
         type: String,
         required: true
-    }
+    },
+    occurredDate: {
+        type: Date,
+        required: true
+    },
 });
 
 const SuspectActivitie = mongoose.model('SuspectActivitie', SuspectActivitieSchema);
