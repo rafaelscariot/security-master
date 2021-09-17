@@ -24,6 +24,7 @@ class CameraService:
                 if not has_frame:
                     print(f'Error to access the camera {self.ip_cam} of the region {self.region_name}')
                 else:
+                    print(f'[INFO] Starting to monitor region {self.region_name}')
                     status_detection = self.check_if_person_or_vechicle_has_been_detected(frame)
 
                     if status_detection != False:

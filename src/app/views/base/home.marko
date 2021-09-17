@@ -117,17 +117,23 @@
           </script>
         </h3>
         
+        <p>
+          Confira o andamento da segurança da sua propriedade.
+        </p>
+
         <div style="display: flex; flex-direction: row">
           <div style='width: 50%;'>
             <canvas id="last24hrsActivities"></canvas>
           </div>
           
           <div style='width: 50%;'>
-            <canvas id="activitieTypeChart"></canvas>
+            <canvas id="last7daysActivitie"></canvas>
           </div>
-  
         </div>
- 
+        
+        <div class='mt-4' style='width: 50%;'>
+          <canvas id="activitieTypeChart"></canvas>
+        </div>
       </div>
     </div>
     <script src="/static/js/util/jquery.min.js" />
@@ -137,5 +143,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/static/js/base/home/activitieTypeChart.js" />
     <script src="/static/js/base/home/last24hrsActivities.js" />
+    <script src="/static/js/base/home/last7daysActivitie.js" />
   </body>
 </html>

@@ -10,11 +10,9 @@ class SecurityMaster():
                 regions = self.regions('http://localhost:3000/region')
 
                 if regions == []:
-                    print('[INFO] Nothing to monitor...')
+                    print('[INFO] No region to monitor...')
                 else:
                     for region in regions:
-                        print(f'[INFO] Starting to monitor region {region["name"]}')
-
                         region_start_time = region['startTime'].replace(':', '.')
                         region_end_time = region['endTime'].replace(':', '.')
 
