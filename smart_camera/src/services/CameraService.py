@@ -74,4 +74,5 @@ class CameraService:
             return error
 
 
-CameraService().start()
+if __name__ == '__main__':
+    CameraService().start()

@@ -30,4 +30,5 @@ class SecurityMaster():
         return requests.get(url).json()
 
 
-SecurityMaster().start()
+if __name__ == '__main__':
+    SecurityMaster().start()

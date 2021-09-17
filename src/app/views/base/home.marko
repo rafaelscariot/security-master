@@ -32,7 +32,7 @@
               <a href="/securitymaster/home">Home</a>
             </li>
             <li>
-              <a href="/securitymaster/region">Nova região</a>
+              <a href="/securitymaster/region">Regiões</a>
             </li>
 
             <li>
@@ -86,7 +86,7 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="/securitymaster/register/region">Nova região</a>
+                  <a class="nav-link" href="/securitymaster/register/region">Regiões</a>
                 </li>
 
                 <li class="nav-item">
@@ -116,12 +116,26 @@
             document.write(status + ", " + userName + "!");
           </script>
         </h3>
+        
+        <div style="display: flex; flex-direction: row">
+          <div style='width: 50%;'>
+            <canvas id="last24hrsActivities"></canvas>
+          </div>
+          
+          <div style='width: 50%;'>
+            <canvas id="activitieTypeChart"></canvas>
+          </div>
+  
+        </div>
+ 
       </div>
     </div>
     <script src="/static/js/util/jquery.min.js" />
     <script src="/static/js/isAuthenticated.js" />
     <script src="/static/js/util/bootstrap.min.js" />
     <script src="/static/js/main.js" />
-    <script src="/static/js/base/home.js" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/js/base/home/activitieTypeChart.js" />
+    <script src="/static/js/base/home/last24hrsActivities.js" />
   </body>
 </html>
