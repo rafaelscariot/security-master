@@ -6,7 +6,7 @@ import os
 
 class TelegramService:
     def __init__(self):
-        self.token = '1448597689:AAGmz64iJBaYACm-M8xXT7rFOff4YNFEcbk'
+        self.token = '2014381749:AAFClGB14a76ImwRikaVQ8WrjUUgMLa4CnA'
 
     def send_notification(self, status_detection, userId):
         try:

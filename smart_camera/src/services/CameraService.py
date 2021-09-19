@@ -1,6 +1,7 @@
 import cv2
 import sys
 import numpy as np
+import urllib.request
 from datetime import datetime
 from TelegramService import TelegramService
 
@@ -14,25 +15,33 @@ class CameraService:
 
     def start(self):
         try:
-            capture = cv2.VideoCapture('src/services/bike.mp4')
+            stream = urllib.request.urlopen(self.ip_cam)
+            total_bytes = b''
 
-            current_hour = f'{datetime.now().hour}.{datetime.now().minute}'
+            while True:
+                current_hour = f'{datetime.now().hour}.{datetime.now().minute}'
+                if current_hour >= self.region_end_time:
+                    break
 
-            while current_hour <= self.region_end_time:
-                has_frame, frame = capture.read()
+                total_bytes += stream.read(1024)
+                b = total_bytes.find(b'\xff\xd9')
 
-                if not has_frame:
-                    print(f'Error to access the camera {self.ip_cam} of the region {self.region_name}')
-                else:
+                if not b == -1:
+                    a = total_bytes.find(b'\xff\xd8')
+                    jpg = total_bytes[a:b+2]
+                    total_bytes= total_bytes[b+2:]
+                    
+                    # decode to colored image ( another option is cv2.IMREAD_GRAYSCALE )
+                    frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8), cv2.IMREAD_COLOR)
+
                     print(f'[INFO] Starting to monitor region {self.region_name}')
                     status_detection = self.check_if_person_or_vechicle_has_been_detected(frame)
 
                     if status_detection != False:
                         cv2.imwrite('src/services/temp_img.jpg', frame)
                         TelegramService().send_notification(status_detection, self.user_id)
-                
-                break
-
+                        
+                        break
         except Exception as error:
             return error
 
