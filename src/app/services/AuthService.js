@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 class AuthService {
     async authentication(email, password) {
         try {
-            if (email === '' || password === '') {
+            if (!email || !password) {
                 throw new Error('E-mail ou senha inválidos');
             }
 
@@ -39,7 +39,7 @@ class AuthService {
 
     async register(fullName, email, password, repeatPassword) {
         try {
-            if (email === '' || password === '' || fullName === '' || repeatPassword === '') {
+            if (!email || !password || !fullName || !repeatPassword) {
                 throw new Error('Campos inválidos');
             }
 

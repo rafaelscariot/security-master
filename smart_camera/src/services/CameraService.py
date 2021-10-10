@@ -15,7 +15,7 @@ class CameraService:
 
     def start(self):
         try:
-            stream = urllib.request.urlopen(self.ip_cam)
+            stream = urllib.request.urlopen('bike.mp4')
             total_bytes = b''
 
             while True:

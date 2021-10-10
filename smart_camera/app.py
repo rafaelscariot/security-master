@@ -20,7 +20,10 @@ class SecurityMaster():
 
                         if current_hour >= region_start_time:
                             subprocess.run(["python.exe", "src/services/CameraService.py", region['userId'], region['name'], region['ipCam'], region_end_time])
-                            
+                            # cameras.pid
+                            # subprocess.call(['kill', str(cameras.pid)])
+                            # ps aux
+
         except Exception as error:
             print(error)
 

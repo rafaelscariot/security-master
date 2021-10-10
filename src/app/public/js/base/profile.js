@@ -33,7 +33,7 @@ $("#btnmodal").click(() => {
     modalAlertSuccess.css("display", "none");
     modalAlertError.text("E-mail inválido");
     modalAlertError.css("display", "block");
-  } else if (modalName === "" || modalPassword === "") {
+  } else if (!modalName || !modalPassword) {
     modalAlertError.text("Campos inválidos");
     modalAlertError.css("display", "block");
   } else {

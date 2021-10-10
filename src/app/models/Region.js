@@ -5,6 +5,10 @@ const RegionsSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    camStatus: {
+        type: String,
+        required: true
+    },
     description: {
         type: String,
         required: true,

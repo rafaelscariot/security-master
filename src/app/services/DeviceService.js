@@ -4,7 +4,7 @@ const getUserId = require('../public/js/getUserId');
 class DeviceService {
     async register(token, chatId, surname) {
         try {
-            if (chatId === '' || isNaN(chatId) || surname === '') {
+            if (!chatId || isNaN(chatId) || !surname) {
                 throw new Error(`Chat ID ${chatId} ou apelido ${surname} inválido`);
             }
 

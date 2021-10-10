@@ -4,15 +4,15 @@ const getUserId = require('../public/js/getUserId');
 class SuspectActivitieService {
     async register(userId, type, occurredRegion) {
         try {
-            if (userId === '') {
+            if (!userId) {
                 throw new Error(`User ID ${userId} inválido`);
             }
 
-            if (type === '') {
+            if (!type) {
                 throw new Error(`Tipo ${type} inválido`);
             }
 
-            if (occurredRegion === '') {
+            if (!occurredRegion) {
                 throw new Error(`Região ${occurredRegion} inválida`);
             }
 

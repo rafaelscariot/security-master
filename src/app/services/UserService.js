@@ -22,7 +22,7 @@ class UserService {
     }
 
     async update(token, newPassword, name, email) {
-        if (name === '' || newPassword === '' || email === '') {
+        if (!name || !newPassword || !email) {
             throw new Error('Campos inválidos');
         }
 

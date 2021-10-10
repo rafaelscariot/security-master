@@ -8,13 +8,7 @@ $("#btnRegister").click(() => {
   let startTime = $("#inputStartTime").val();
   let endTime = $("#inputEndTime").val();
 
-  if (
-    region === "" ||
-    description === "" ||
-    ipCam === "" ||
-    startTime === "" ||
-    endTime === ""
-  ) {
+  if (!region || !description || !ipCam || !startTime || !endTime) {
     successAlert.css("display", "none");
     errorAlert.text("Campos inválidos");
     errorAlert.css("display", "block");
@@ -29,6 +23,7 @@ $("#btnRegister").click(() => {
         ipCam,
         startTime,
         endTime,
+        camStatus: "Ativa",
       },
     })
       .done(() => {
@@ -94,6 +89,36 @@ $.ajax({
             <td>${e.description}</td>
             <td>${e.startTime} - ${e.endTime}</td>
         `;
+
+      let btnCamStatus = document.createElement("button");
+
+      btnCamStatus.addEventListener("click", () => {
+        $.ajax({
+          method: "PUT",
+          url: `/region/${e.name}`,
+          data: {
+            camStatus: e.camStatus,
+          },
+        })
+          .done(() => {
+            window.location.replace(
+              "http://localhost:3000/securitymaster/region"
+            );
+          })
+          .fail((data) => {
+            console.log(data.responseJSON.message.replace("Error: ", ""));
+          });
+      });
+
+      btnCamStatus.style.background = "lightgray";
+      btnCamStatus.style.color = "black";
+      btnCamStatus.style.border = "1px solid white";
+      btnCamStatus.style.borderRadius = "5px";
+      btnCamStatus.textContent = `${e.camStatus} - Clique para alterar`;
+
+      let tdCamStatus = document.createElement("td");
+      tdCamStatus.appendChild(btnCamStatus);
+      tr.appendChild(tdCamStatus);
 
       tr.appendChild(td);
       divRegions.appendChild(tr);
