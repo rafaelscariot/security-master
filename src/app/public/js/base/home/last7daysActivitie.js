@@ -23,15 +23,29 @@ $.ajax({
 
       if (isLast7days(occurredDate)) {
         // 0 - sunday, 1 - monday, 2 - tuesday, 3 - wednesday, 4 - thursday, 5 - friday, 6 - saturday
-        occurredActivitieDay = occurredDate.getDay()
+        occurredActivitieDay = occurredDate.getDay();
 
-        occurredActivitieDay === 0 ? activitieDays.sunday++ : activitieDays.sunday;
-        occurredActivitieDay === 1 ? activitieDays.monday++ : activitieDays.monday;
-        occurredActivitieDay === 2 ? activitieDays.tuesday++ : activitieDays.tuesday;
-        occurredActivitieDay === 3 ? activitieDays.wednesday++ : activitieDays.wednesday;
-        occurredActivitieDay === 4 ? activitieDays.thursday++ : activitieDays.thursday;
-        occurredActivitieDay === 5 ? activitieDays.friday++ : activitieDays.friday;
-        occurredActivitieDay === 6 ? activitieDays.saturday++ : activitieDays.saturday;
+        occurredActivitieDay === 0
+          ? activitieDays.sunday++
+          : activitieDays.sunday;
+        occurredActivitieDay === 1
+          ? activitieDays.monday++
+          : activitieDays.monday;
+        occurredActivitieDay === 2
+          ? activitieDays.tuesday++
+          : activitieDays.tuesday;
+        occurredActivitieDay === 3
+          ? activitieDays.wednesday++
+          : activitieDays.wednesday;
+        occurredActivitieDay === 4
+          ? activitieDays.thursday++
+          : activitieDays.thursday;
+        occurredActivitieDay === 5
+          ? activitieDays.friday++
+          : activitieDays.friday;
+        occurredActivitieDay === 6
+          ? activitieDays.saturday++
+          : activitieDays.saturday;
       }
     });
 

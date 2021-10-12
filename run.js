@@ -1,6 +1,9 @@
-const app = require('./src/config/custom-express');
+const app = require("./src/config/custom-express");
+const EnvironmentConfig = require("./src/config/environment");
 
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log('[INFO] Server is running on port', PORT);
+app.listen(EnvironmentConfig.APP_PORT || 3000, () => {
+  console.log(
+    "[INFO] Server is running on port",
+    EnvironmentConfig.APP_PORT || 3000
+  );
 });

@@ -2,6 +2,7 @@ from SaveAlertService import SaveAlertService
 import requests
 import subprocess
 import os
+from config import BASE_HOST
 
 
 class TelegramService:
@@ -10,7 +11,7 @@ class TelegramService:
 
     def send_notification(self, status_detection, userId):
         try:
-            devices = self.devices(f'http://localhost:3000/device/surveillance/{userId}')
+            devices = self.devices(f'{BASE_HOST}/device/surveillance/{userId}')
 
             if devices == []:
                 print('[INFO] No device to notify...')

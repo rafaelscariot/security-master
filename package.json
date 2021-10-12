@@ -14,6 +14,7 @@
     "bcrypt": "^5.0.0",
     "body-parser": "1.18.3",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "4.16.3",
     "jsonwebtoken": "^8.5.1",
     "marko": "4.13.4-1",

@@ -1,10 +1,14 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const EnvironmentConfig = require("./environment");
 
-mongoose.connect('mongodb://localhost:27017/security_master', {
+mongoose.connect(
+  EnvironmentConfig.MONGODB_URL || "mongodb://localhost:27017/security_master",
+  {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-    useCreateIndex: true
-});
+    useCreateIndex: true,
+  }
+);
 
 mongoose.Promise = global.Promise;
 
