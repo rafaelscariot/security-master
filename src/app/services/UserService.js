@@ -21,7 +21,8 @@ class UserService {
     }
   }
 
-  async update(token, newPassword, name, email) {
+  async update(user) {
+    const { token, newPassword, name, email } = user;
     if (!name || !newPassword || !email) {
       throw new Error("Campos inválidos");
     }

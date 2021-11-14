@@ -3,24 +3,7 @@ const RegionService = require("../services/RegionService");
 regionController = (app) => {
   app.post("/region", async (req, res) => {
     try {
-      const {
-        token,
-        camStatus,
-        region,
-        description,
-        ipCam,
-        startTime,
-        endTime,
-      } = req.body;
-      const response = await new RegionService().register(
-        token,
-        camStatus,
-        region,
-        description,
-        ipCam,
-        startTime,
-        endTime
-      );
+      const response = await new RegionService().register(req.body);
       res.status(200).send(response);
     } catch (error) {
       console.log(`REGISTER REGION: ${error}`);

@@ -2,16 +2,10 @@ const RegionModel = require("../models/Region");
 const getUserId = require("../public/js/getUserId");
 
 class RegionService {
-  async register(
-    token,
-    camStatus,
-    name,
-    description,
-    ipCam,
-    startTime,
-    endTime
-  ) {
+  async register(region) {
     try {
+      const { token, camStatus, name, description, ipCam, startTime, endTime } =
+        region;
       if (
         !name ||
         !camStatus ||

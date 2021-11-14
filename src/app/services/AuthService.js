@@ -37,8 +37,9 @@ class AuthService {
     }
   }
 
-  async register(fullName, email, password, repeatPassword) {
+  async register(user) {
     try {
+      const { fullName, email, password, repeatPassword } = user;
       if (!email || !password || !fullName || !repeatPassword) {
         throw new Error("Campos inválidos");
       }

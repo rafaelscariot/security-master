@@ -15,7 +15,7 @@ class CameraService:
 
     def start(self):
         try:
-            stream = urllib.request.urlopen('bike.mp4')
+            stream = urllib.request.urlopen(self.ip_cam)
             total_bytes = b''
 
             while True:
@@ -30,7 +30,7 @@ class CameraService:
                     a = total_bytes.find(b'\xff\xd8')
                     jpg = total_bytes[a:b+2]
                     total_bytes= total_bytes[b+2:]
-                    
+
                     # decode to colored image ( another option is cv2.IMREAD_GRAYSCALE )
                     frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8), cv2.IMREAD_COLOR)
 
@@ -40,7 +40,7 @@ class CameraService:
                     if status_detection != False:
                         cv2.imwrite('src/services/temp_img.jpg', frame)
                         TelegramService().send_notification(status_detection, self.user_id)
-                        
+
                         break
         except Exception as error:
             return error

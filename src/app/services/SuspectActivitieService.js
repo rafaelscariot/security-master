@@ -2,7 +2,8 @@ const SuspectActivitieModel = require("../models/SuspectActivitie");
 const getUserId = require("../public/js/getUserId");
 
 class SuspectActivitieService {
-  async register(userId, type, occurredRegion) {
+  async register(activitie) {
+    const { userId, type, occurredRegion } = activitie;
     try {
       if (!userId) {
         throw new Error(`User ID ${userId} inválido`);

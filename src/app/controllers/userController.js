@@ -14,13 +14,7 @@ userController = (app) => {
 
   app.put("/user", async (req, res) => {
     try {
-      const { token, newPassword, name, email } = req.body;
-      const response = await new UserService().update(
-        token,
-        newPassword,
-        name,
-        email
-      );
+      const response = await new UserService().update(req.body);
       res.status(200).send(response);
     } catch (err) {
       console.log(`UPDATE USER: ${err}`);

@@ -3,12 +3,7 @@ const SuspectActivitieService = require("../services/SuspectActivitieService");
 suspectActivitieController = (app) => {
   app.post("/activitie", async (req, res) => {
     try {
-      const { userId, type, occurredRegion } = req.body;
-      const response = await new SuspectActivitieService().register(
-        userId,
-        type,
-        occurredRegion
-      );
+      const response = await new SuspectActivitieService().register(req.body);
       res.status(200).send(response);
     } catch (error) {
       console.log(`REGISTER ACTIVITIE: ${error}`);

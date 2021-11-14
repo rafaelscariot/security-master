@@ -14,13 +14,7 @@ authController = (app) => {
 
   app.post("/user", async (req, res) => {
     try {
-      const { fullName, email, password, repeatPassword } = req.body;
-      let response = await new AuthService().register(
-        fullName,
-        email,
-        password,
-        repeatPassword
-      );
+      let response = await new AuthService().register(req.body);
       res.status(200).send(response);
     } catch (err) {
       console.log(`USER REGISTER: ${err}`);
