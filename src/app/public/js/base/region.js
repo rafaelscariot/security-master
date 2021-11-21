@@ -2,13 +2,13 @@ let errorAlert = $("#alert-error");
 let successAlert = $("#alert-success");
 
 $("#btnRegister").click(() => {
-  let region = $("#inputRegion").val();
+  let name = $("#inputName").val();
   let description = $("#inputDescription").val();
   let ipCam = $("#inputIpCam").val();
   let startTime = $("#inputStartTime").val();
   let endTime = $("#inputEndTime").val();
 
-  if (!region || !description || !ipCam || !startTime || !endTime) {
+  if (!name || !description || !ipCam || !startTime || !endTime) {
     successAlert.css("display", "none");
     errorAlert.text("Campos inválidos");
     errorAlert.css("display", "block");
@@ -18,7 +18,7 @@ $("#btnRegister").click(() => {
       url: "/region",
       data: {
         token: localStorage.getItem("JWT"),
-        region,
+        name,
         description,
         ipCam,
         startTime,

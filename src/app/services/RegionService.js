@@ -4,6 +4,7 @@ const getUserId = require("../public/js/getUserId");
 class RegionService {
   async register(region) {
     try {
+      console.log(region)
       const { token, camStatus, name, description, ipCam, startTime, endTime } =
         region;
       if (
