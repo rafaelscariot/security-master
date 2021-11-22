@@ -9,6 +9,7 @@ services:
       - mongodb
     depends_on:
       - mongodb
+    restart: always
 
   mongodb:
     image: mongo:latest
@@ -17,6 +18,16 @@ services:
     volumes:
       - db-data:/data/db
       - mongo-config:/data/configdb
+    restart: always
+
+  python:
+    build: ./smart_camera
+    links:
+      - express
+    depends_on:
+      - express
+      - mongodb
+    restart: always
 
 volumes:
   db-data:

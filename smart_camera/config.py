@@ -1,1 +1,1 @@
-BASE_HOST = 'http://localhost:3000'
+BASE_HOST = 'http://express:3000'

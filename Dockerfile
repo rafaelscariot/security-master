@@ -1,6 +1,6 @@
 FROM node:latest
 
-COPY . .
+COPY ../../ .
 
 RUN npm i
 
