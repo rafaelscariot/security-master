@@ -7,14 +7,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const EnvironmentConfig = require("./environment");
-
 const app = express();
 
 app.use("/static", express.static("src/app/public"));
 app.use(
   cors({
-    origin: EnvironmentConfig.APP_HOST || "http://localhost:3000",
+    origin: "http://localhost:3000",
     optionsSuccessStatus: 200,
   })
 );

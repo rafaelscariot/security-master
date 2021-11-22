@@ -5,7 +5,7 @@
   "main": "run.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon run.js"
+    "start": "node run.js"
   },
   "author": "Rafael Scariot",
   "license": "ISC",
@@ -19,8 +19,5 @@
     "jsonwebtoken": "^8.5.1",
     "marko": "4.13.4-1",
     "mongoose": "^5.12.10"
-  },
-  "devDependencies": {
-    "nodemon": "1.18.4"
   }
 }
