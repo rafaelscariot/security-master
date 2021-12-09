@@ -21,6 +21,10 @@ Software for rural, residential or business properties, which was developed as a
 
 All you need is having Docker installed and running.
 
+Then run:
+
 ```bash
 $ docker-compose up -d --build
 ```
+
+and now access _http://localhost:3000_ in your preferred browser.
