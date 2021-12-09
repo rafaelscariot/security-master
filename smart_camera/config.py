@@ -1,1 +1,0 @@
-BASE_HOST = 'http://express:3000'

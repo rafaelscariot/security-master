@@ -15,33 +15,38 @@ class CameraService:
 
     def start(self):
         try:
-            stream = urllib.request.urlopen(self.ip_cam)
-            total_bytes = b''
+            # stream = urllib.request.urlopen(self.ip_cam)
+            # total_bytes = b''
+
+            capture = cv2.VideoCapture(self.ip_cam)
 
             while True:
                 current_hour = f'{datetime.now().hour}.{datetime.now().minute}'
                 if current_hour >= self.region_end_time:
                     break
 
-                total_bytes += stream.read(1024)
-                b = total_bytes.find(b'\xff\xd9')
+                has_frame, frame = capture.read()
 
-                if not b == -1:
-                    a = total_bytes.find(b'\xff\xd8')
-                    jpg = total_bytes[a:b+2]
-                    total_bytes= total_bytes[b+2:]
+                # total_bytes += stream.read(1024)
+                # b = total_bytes.find(b'\xff\xd9')
 
-                    # decode to colored image ( another option is cv2.IMREAD_GRAYSCALE )
-                    frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8), cv2.IMREAD_COLOR)
+                # if not b == -1:
+                    # a = total_bytes.find(b'\xff\xd8')
+                    # jpg = total_bytes[a:b+2]
+                    # total_bytes= total_bytes[b+2:]
 
-                    print(f'[INFO] Starting to monitor region {self.region_name}')
-                    status_detection = self.check_if_person_or_vechicle_has_been_detected(frame)
+                    # # decode to colored image ( another option is cv2.IMREAD_GRAYSCALE )
+                    # frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8), cv2.IMREAD_COLOR)
 
-                    if status_detection != False:
-                        cv2.imwrite('src/services/temp_img.jpg', frame)
-                        TelegramService().send_notification(status_detection, self.user_id)
+                print(f'[INFO] Starting to monitor region {self.region_name}')
+                status_detection = self.check_if_person_or_vechicle_has_been_detected(frame)
+                print(status_detection)
 
-                        break
+                if status_detection != False:
+                    cv2.imwrite('src/services/temp_img.jpg', frame)
+                    TelegramService().send_notification(status_detection, self.user_id)
+
+                    break
         except Exception as error:
             return error
 

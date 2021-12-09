@@ -21,6 +21,8 @@ services:
     restart: always
 
   python:
+    environment:
+      - TZ=America/Sao_Paulo
     build: ./smart_camera
     links:
       - express
