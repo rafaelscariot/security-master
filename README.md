@@ -8,6 +8,7 @@ Technologies used:
   - MongoDB
   - Docker
   - Computer Vision
+  - Telegram
 
 ## Samples:
 
