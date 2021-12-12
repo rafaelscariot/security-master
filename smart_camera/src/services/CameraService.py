@@ -25,7 +25,7 @@ class CameraService:
                 if current_hour >= self.region_end_time:
                     break
 
-                has_frame, frame = capture.read()
+                _, frame = capture.read()
 
                 # total_bytes += stream.read(1024)
                 # b = total_bytes.find(b'\xff\xd9')
@@ -40,13 +40,12 @@ class CameraService:
 
                 print(f'[INFO] Starting to monitor region {self.region_name}')
                 status_detection = self.check_if_person_or_vechicle_has_been_detected(frame)
-                print(status_detection)
 
                 if status_detection != False:
                     cv2.imwrite('src/services/temp_img.jpg', frame)
                     TelegramService().send_notification(status_detection, self.user_id)
 
-                    break
+                break
         except Exception as error:
             return error
 
