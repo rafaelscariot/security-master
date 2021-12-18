@@ -8,43 +8,47 @@ $("#btnRegister").click(() => {
   let startTime = $("#inputStartTime").val();
   let endTime = $("#inputEndTime").val();
 
-  if (!name || !description || !ipCam || !startTime || !endTime) {
+  if (!name || !description || !ipCam) {
     successAlert.css("display", "none");
     errorAlert.text("Campos inválidos");
     errorAlert.css("display", "block");
   } else {
-    $.ajax({
-      method: "POST",
-      url: "/region",
-      data: {
-        token: localStorage.getItem("JWT"),
-        name,
-        description,
-        ipCam,
-        startTime,
-        endTime,
-        camStatus: "Ativa",
-      },
-    })
-      .done(() => {
-        errorAlert.css("display", "none");
-        successAlert.text("Região cadastrada");
-        successAlert.css("display", "block");
-        region = "";
-        description = "";
-        ipCam = "";
-        startTime = "";
-        endTime = "";
-        window.location.replace("http://localhost:3000/securitymaster/region");
+    (startTime = startTime.length === 0 ? "" : startTime),
+      (endTime = endTime.length === 0 ? "" : endTime),
+      $.ajax({
+        method: "POST",
+        url: "/region",
+        data: {
+          token: localStorage.getItem("JWT"),
+          name,
+          description,
+          ipCam,
+          startTime,
+          endTime,
+          camStatus: "Ativa",
+        },
       })
-      .fail((data) => {
-        console.log(data);
-        successAlert.css("display", "none");
-        errorAlert.text(
-          data.responseJSON.message.replace("Error: Error: ", "")
-        );
-        errorAlert.css("display", "block");
-      });
+        .done(() => {
+          errorAlert.css("display", "none");
+          successAlert.text("Região cadastrada");
+          successAlert.css("display", "block");
+          region = "";
+          description = "";
+          ipCam = "";
+          startTime = "";
+          endTime = "";
+          window.location.replace(
+            "http://localhost:3000/securitymaster/region"
+          );
+        })
+        .fail((data) => {
+          console.log(data);
+          successAlert.css("display", "none");
+          errorAlert.text(
+            data.responseJSON.message.replace("Error: Error: ", "")
+          );
+          errorAlert.css("display", "block");
+        });
   }
 });
 
@@ -83,11 +87,15 @@ $.ajax({
 
       let tr = document.createElement("tr");
       tr.id = index + 1;
+
+      const time =
+        e.startTime.length === 0 ? "24 horas" : e.startTime + " - " + e.endTime;
+
       tr.innerHTML = `
             <th scope="row">${index + 1}</th>
             <td>${e.name}</td>
             <td>${e.description}</td>
-            <td>${e.startTime} - ${e.endTime}</td>
+            <td>${time}</td>
         `;
 
       let btnCamStatus = document.createElement("button");

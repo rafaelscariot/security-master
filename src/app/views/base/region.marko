@@ -131,6 +131,9 @@
           <p style="font-size: 1.5em; text-align: center">
             Horário de monitoramento
           </p>
+          <p style="text-align: center">
+            Deixe estes dois campos em branco caso deseje que a região seja monitorada 24 horas
+          </p>
           <div.form-row>
             <div.form-group.col-md-6>
               <label for="startTime">Início</label>
@@ -155,7 +158,7 @@
         <hr>
         <h4.mt-2 style="text-align: center">Minhas regiões de monitoramento</h4>
         <table.table.table-striped.table-dark.mt-2>
-          <thead>
+          <thead style="text-align: center">
             <tr>
               <th scope="col">#</th>
               <th scope="col">Região</th>
@@ -165,7 +168,7 @@
               <th scope="col">Excluir região</th>
             </tr>
           </thead>
-          <tbody#regions/>
+          <tbody#regions style="text-align: center"/>
         </table>
       </div>
     </div>

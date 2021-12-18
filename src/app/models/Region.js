@@ -15,11 +15,11 @@ const RegionsSchema = new mongoose.Schema({
   },
   startTime: {
     type: String,
-    required: true,
+    required: false,
   },
   endTime: {
     type: String,
-    required: true,
+    required: false,
   },
   ipCam: {
     type: String,

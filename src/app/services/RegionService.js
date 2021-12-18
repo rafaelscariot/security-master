@@ -11,9 +11,7 @@ class RegionService {
         !name ||
         !camStatus ||
         !description ||
-        !ipCam ||
-        !startTime ||
-        !endTime
+        !ipCam
       ) {
         throw new Error("Campos inválidos");
       }
