@@ -17,10 +17,14 @@ class SecurityMaster():
                 else:
                     for region in regions:
                         if region['camStatus'] != 'Desativada':
-                            region_start_time = region['startTime'].replace(
-                                ':', '.')
-                            region_end_time = region['endTime'].replace(
-                                ':', '.')
+                            region_start_time = ''
+                            region_end_time = ''
+
+                            if (region['startTime'].length >= 1 and region['endTime'].length > 0):
+                                region_start_time = region['startTime'].replace(
+                                    ':', '.')
+                                region_end_time = region['endTime'].replace(
+                                    ':', '.')
 
                             current_hour = f'{datetime.now().hour}.{datetime.now().minute}'
 
