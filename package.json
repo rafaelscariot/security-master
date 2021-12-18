@@ -18,6 +18,7 @@
     "express": "4.16.3",
     "jsonwebtoken": "^8.5.1",
     "marko": "4.13.4-1",
-    "mongoose": "^5.12.10"
+    "mongoose": "^5.12.10",
+    "nodemon": "^2.0.15"
   }
 }

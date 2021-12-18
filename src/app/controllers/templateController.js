@@ -31,6 +31,14 @@ templateController = (app) => {
     }
   });
 
+  app.get("/securitymaster/alerts", async (req, res) => {
+    try {
+      res.marko(require("../views/base/alerts.marko"));
+    } catch (err) {
+      res.status(400).send({ error: err });
+    }
+  });
+
   app.get("/error", async (req, res) => {
     try {
       res.marko(require("../views/errors/500.marko"));
