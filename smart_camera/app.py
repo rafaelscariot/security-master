@@ -20,7 +20,7 @@ class SecurityMaster():
                             region_start_time = ''
                             region_end_time = ''
 
-                            if (region['startTime'].length >= 1 and region['endTime'].length > 0):
+                            if (len(region['startTime']) >= 1 and len(region['endTime']) > 0):
                                 region_start_time = region['startTime'].replace(
                                     ':', '.')
                                 region_end_time = region['endTime'].replace(

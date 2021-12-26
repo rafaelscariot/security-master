@@ -22,7 +22,8 @@ class CameraService:
 
             while True:
                 current_hour = f'{datetime.now().hour}.{datetime.now().minute}'
-                if self.region_end_time.length > 0:
+                
+                if len(self.region_end_time) > 0:
                     if current_hour >= self.region_end_time:
                         break
 
