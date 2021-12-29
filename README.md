@@ -10,13 +10,12 @@ Technologies used:
   - Telegram
 
 ## Samples:
-
-<img src="https://github.com/rafaelscariot/security-master/blob/master/src/app/public/img/Screenshot_3.png" />
-<img src="https://github.com/rafaelscariot/security-master/blob/master/src/app/public/img/Screenshot_10.png" />
-<img src="https://github.com/rafaelscariot/security-master/blob/master/src/app/public/img/Screenshot_6.png" />
-<img src="https://github.com/rafaelscariot/security-master/blob/master/src/app/public/img/Screenshot_8.png" />
-<img src="https://github.com/rafaelscariot/security-master/blob/master/src/app/public/img/Screenshot_9.png" />
-<img src="https://github.com/rafaelscariot/security-master/blob/master/src/app/public/img/Screenshot_7.png" />
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/Screenshot_3.png" />
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/Screenshot_10.png" />
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/Screenshot_6.png" />
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/Screenshot_8.png" />
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/Screenshot_9.png" />
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/Screenshot_7.png" />
 
 ### Real-time identification of vehicles and people with a high accuracy rate using a Convolutional Neural Network, more information <a href="https://github.com/rafaelscariot/detect-people-and-vehicles">here</a>.
 
@@ -24,7 +23,7 @@ Technologies used:
 
 ## The system features can be seen in the use case diagram below:
 
-<img src="https://github.com/rafaelscariot/security-master/blob/master/src/app/public/img/usecases.png" />
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/usecases.png" />
 
 ## Running the app
 
