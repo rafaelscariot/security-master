@@ -9,9 +9,13 @@ Technologies used:
   - Docker
   - Telegram
 
-## Sample:
-
-[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://youtu.be/vt5fpE0bzSY)
+## Samples:
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/Screenshot_3.png" />
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/Screenshot_10.png" />
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/Screenshot_6.png" />
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/Screenshot_8.png" />
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/Screenshot_9.png" />
+<img src="https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/Screenshot_7.png" />
 
 ### Real-time identification of vehicles and people with a high accuracy rate using a Convolutional Neural Network, more information <a href="https://github.com/rafaelscariot/detect-people-and-vehicles">here</a>.
 
