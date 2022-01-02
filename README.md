@@ -11,7 +11,7 @@ Technologies used:
 
 ## Sample:
 
-https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/securitymaster.mp4
+[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://github.com/rafaelscariot/security-master/blob/main/src/app/public/img/securitymaster.mp4)
 
 ### Real-time identification of vehicles and people with a high accuracy rate using a Convolutional Neural Network, more information <a href="https://github.com/rafaelscariot/detect-people-and-vehicles">here</a>.
 
