@@ -37,9 +37,7 @@ $("#btnRegister").click(() => {
           ipCam = "";
           startTime = "";
           endTime = "";
-          window.location.replace(
-            "http://localhost:3000/securitymaster/region"
-          );
+          window.location.replace("/securitymaster/region");
         })
         .fail((data) => {
           console.log(data);
@@ -70,9 +68,7 @@ $.ajax({
           .done(() => {
             tr = document.getElementById(index + 1);
             tr.remove();
-            window.location.replace(
-              "http://localhost:3000/securitymaster/region"
-            );
+            window.location.replace("/securitymaster/region");
           })
           .fail((data) => {
             console.log(data.responseJSON.message.replace("Error: ", ""));
@@ -109,9 +105,7 @@ $.ajax({
           },
         })
           .done(() => {
-            window.location.replace(
-              "http://localhost:3000/securitymaster/region"
-            );
+            window.location.replace("/securitymaster/region");
           })
           .fail((data) => {
             console.log(data.responseJSON.message.replace("Error: ", ""));

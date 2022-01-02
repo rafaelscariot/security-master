@@ -148,7 +148,7 @@ const deleteChatId = (index, chatId) => {
     .done(() => {
       tr = document.getElementById(index);
       tr.remove();
-      window.location.replace("http://localhost:3000/securitymaster/profile");
+      window.location.replace("/securitymaster/profile");
     })
     .fail((data) => {
       console.log(data.responseJSON.message.replace("Error: ", ""));
@@ -157,7 +157,7 @@ const deleteChatId = (index, chatId) => {
 
 // close modal
 $(".closeModalBtn").click(() => {
-  window.location.replace("http://localhost:3000/securitymaster/profile");
+  window.location.replace("/securitymaster/profile");
 });
 
 function validateEmail(email) {

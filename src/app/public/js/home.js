@@ -22,7 +22,7 @@ $("#form-login").submit((event) => {
       .done((data) => {
         localStorage.setItem("JWT", data.token);
         localStorage.setItem("userName", data.fullName);
-        window.location.replace("http://localhost:3000/securitymaster/home");
+        window.location.replace("/securitymaster/home");
       })
       .fail((data) => {
         alert.text(data.responseJSON.message.replace("Error: Error: ", ""));
