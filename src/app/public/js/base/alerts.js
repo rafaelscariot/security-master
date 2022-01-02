@@ -15,7 +15,7 @@ $.ajax({
             <th scope="row">${index + 1}</th>
             <td>${activitie.occurredRegion}</td>
             <td>${activitie.type}</td>
-            <td>${date.getDate()}/${date.getMonth()}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}</td>
+            <td>${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}</td>
         `;
 
       alerts.appendChild(tr);
