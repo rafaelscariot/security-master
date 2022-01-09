@@ -7,7 +7,7 @@ import os
 class TelegramService:
     def __init__(self):
         self.token = '2014381749:AAFClGB14a76ImwRikaVQ8WrjUUgMLa4CnA'
-        self.BASE_HOST = 'http://express:3000'
+        self.BASE_HOST = 'http://localhost:3000'
 
     def send_notification(self, status_detection, userId):
         try:
@@ -21,7 +21,7 @@ class TelegramService:
 
                     message = f'Alerta: {status_detection["type"]} identificado na região {status_detection["region"]}'
 
-                    text = f'https://api.telegram.org/bot{self.token}/sendMessage?chat_id={device["chatId"]}&parse_mode=Markdown&text={message}'
+                    text = "https://api.telegram.org/bot" + self.token + "/sendMessage" + "?chat_id=" + device["chatId"] + "&text=" + message
 
                     img_request = 'curl -s -X POST https://api.telegram.org/bot' + self.token + \
                         '/sendPhoto -F chat_id=' + \

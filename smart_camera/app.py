@@ -5,7 +5,7 @@ from datetime import datetime
 
 class SecurityMaster():
     def __init__(self):
-        self.BASE_HOST = 'http://express:3000'
+        self.BASE_HOST = 'http://localhost:3000'
 
     def start(self):
         try:

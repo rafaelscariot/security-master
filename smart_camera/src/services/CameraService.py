@@ -15,40 +15,42 @@ class CameraService:
 
     def start(self):
         try:
-            # stream = urllib.request.urlopen(self.ip_cam)
-            # total_bytes = b''
+            stream = urllib.request.urlopen(self.ip_cam)
+            total_bytes = b''
 
-            capture = cv2.VideoCapture(self.ip_cam)
+            # capture = cv2.VideoCapture(self.ip_cam)
 
             while True:
                 current_hour = f'{datetime.now().hour}.{datetime.now().minute}'
-                
+
                 if len(self.region_end_time) > 0:
                     if current_hour >= self.region_end_time:
                         break
 
-                _, frame = capture.read()
+                # _, frame = capture.read()
 
-                # total_bytes += stream.read(1024)
-                # b = total_bytes.find(b'\xff\xd9')
+                total_bytes += stream.read(1024)
+                b = total_bytes.find(b'\xff\xd9')
 
-                # if not b == -1:
-                # a = total_bytes.find(b'\xff\xd8')
-                # jpg = total_bytes[a:b+2]
-                # total_bytes= total_bytes[b+2:]
+                if not b == -1:
+                    a = total_bytes.find(b'\xff\xd8')
+                    jpg = total_bytes[a:b+2]
+                    total_bytes = total_bytes[b+2:]
 
-                # # decode to colored image ( another option is cv2.IMREAD_GRAYSCALE )
-                # frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8), cv2.IMREAD_COLOR)
+                    # decode to colored image ( another option is cv2.IMREAD_GRAYSCALE )
+                    frame = cv2.imdecode(np.fromstring(
+                        jpg, dtype=np.uint8), cv2.IMREAD_COLOR)
 
-                print(f'[INFO] Starting to monitor region {self.region_name}')
-                status_detection = self.check_if_person_or_vechicle_has_been_detected(
-                    frame)
+                    print(
+                        f'[INFO] Starting to monitor region {self.region_name}')
+                    status_detection = self.check_if_person_or_vechicle_has_been_detected(
+                        frame)
 
-                if status_detection != False:
-                    cv2.imwrite('src/services/temp_img.jpg', frame)
-                    TelegramService().send_notification(status_detection, self.user_id)
+                    if status_detection != False:
+                        cv2.imwrite('src/services/temp_img.jpg', frame)
+                        TelegramService().send_notification(status_detection, self.user_id)
 
-                break
+                        break
         except Exception as error:
             return error
 
@@ -69,14 +71,14 @@ class CameraService:
             for i in np.arange(0, neural_network_output.shape[2]):
                 confidence = neural_network_output[0, 0, i, 2]
 
-                if confidence > 0.30:
+                if confidence > 0:
                     idx = int(neural_network_output[0, 0, i, 1])
 
                     if idx == 2:
                         return {'type': 'Bicicleta', 'region': self.region_name}
 
-                    elif idx == 6:
-                        return {'type': 'Ônibus', 'region': self.region_name}
+                    # elif idx == 6:
+                    #     return {'type': 'Ônibus', 'region': self.region_name}
 
                     elif idx == 7:
                         return {'type': 'Carro', 'region': self.region_name}
