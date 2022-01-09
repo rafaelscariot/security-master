@@ -19,7 +19,7 @@ Technologies used:
 
 ### Real-time identification of vehicles and people with a high accuracy rate using a Convolutional Neural Network, more information <a href="https://github.com/rafaelscariot/detect-people-and-vehicles">here</a>.
 
-<img src="https://github.com/rafaelscariot/detect-people-and-vehicles/blob/master/src/resources/result.png" />
+![screen-gif](https://github.com/rafaelscariot/detect-people-and-vehicles/blob/master/src/resources/result.gif)
 
 ## The system features can be seen in the use case diagram below:
 
