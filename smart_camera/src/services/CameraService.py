@@ -13,6 +13,11 @@ class CameraService:
         self.ip_cam = sys.argv[3]
         self.region_end_time = sys.argv[4]
 
+        self.neural_network = cv2.dnn.readNetFromCaffe(
+            'src/models/MobileNetSSD_deploy.prototxt',
+            'src/models/MobileNetSSD_deploy.caffemodel'
+        )
+
     def start(self):
         try:
             stream = urllib.request.urlopen(self.ip_cam)
@@ -56,17 +61,12 @@ class CameraService:
 
     def check_if_person_or_vechicle_has_been_detected(self, frame):
         try:
-            neural_network = cv2.dnn.readNetFromCaffe(
-                'src/models/MobileNetSSD_deploy.prototxt',
-                'src/models/MobileNetSSD_deploy.caffemodel'
-            )
-
             frame_blob = cv2.dnn.blobFromImage(cv2.resize(
                 frame, (300, 300)), 0.007843, (300, 300), 127.5)
 
-            neural_network.setInput(frame_blob)
+            self.neural_network.setInput(frame_blob)
 
-            neural_network_output = neural_network.forward()
+            neural_network_output = self.neural_network.forward()
 
             for i in np.arange(0, neural_network_output.shape[2]):
                 confidence = neural_network_output[0, 0, i, 2]
@@ -77,8 +77,8 @@ class CameraService:
                     if idx == 2:
                         return {'type': 'Bicicleta', 'region': self.region_name}
 
-                    # elif idx == 6:
-                    #     return {'type': 'Ônibus', 'region': self.region_name}
+                    elif idx == 6:
+                        return {'type': 'Ônibus', 'region': self.region_name}
 
                     elif idx == 7:
                         return {'type': 'Carro', 'region': self.region_name}

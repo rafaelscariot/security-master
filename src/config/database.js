@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://mongodb/security_master", {
+mongoose.connect("mongodb://userx:1234@localhost:27017/security_master", {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true,

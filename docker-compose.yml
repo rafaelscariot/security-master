@@ -1,35 +1,40 @@
-version: "3.0"
+version: "3.7"
 
 services:
-  express:
-    build: .
-    ports:
-      - "3000:3000"
-    links:
-      - mongodb
-    depends_on:
-      - mongodb
-    restart: always
+  # express:
+  #   build: .
+  #   ports:
+  #     - "3000:3000"
+  #   links:
+  #     - mongodb
+  #   depends_on:
+  #     - mongodb
+  #   restart: always
 
   mongodb:
     image: mongo:latest
     ports:
       - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=86QiPj9QNAWS
+      - MONGO_INITDB_DATABASE=security_master
     volumes:
       - db-data:/data/db
       - mongo-config:/data/configdb
+      - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     restart: always
 
-  python:
-    environment:
-      - TZ=America/Sao_Paulo
-    build: ./smart_camera
-    links:
-      - express
-    depends_on:
-      - express
-      - mongodb
-    restart: always
+  # python:
+  #   environment:
+  #     - TZ=America/Sao_Paulo
+  #   build: ./smart_camera
+  #   links:
+  #     - express
+  #   depends_on:
+  #     - express
+  #     - mongodb
+  #   restart: always
 
 volumes:
   db-data:
