@@ -40,7 +40,6 @@ $("#btnRegister").click(() => {
           window.location.replace("/securitymaster/region");
         })
         .fail((data) => {
-          console.log(data);
           successAlert.css("display", "none");
           errorAlert.text(
             data.responseJSON.message.replace("Error: Error: ", "")
@@ -71,7 +70,7 @@ $.ajax({
             window.location.replace("/securitymaster/region");
           })
           .fail((data) => {
-            console.log(data.responseJSON.message.replace("Error: ", ""));
+            console.info(data.responseJSON.message.replace("Error: ", ""));
           });
       });
       btn.style.color = "white";
@@ -108,7 +107,7 @@ $.ajax({
             window.location.replace("/securitymaster/region");
           })
           .fail((data) => {
-            console.log(data.responseJSON.message.replace("Error: ", ""));
+            console.info(data.responseJSON.message.replace("Error: ", ""));
           });
       });
 
@@ -127,5 +126,5 @@ $.ajax({
     });
   })
   .fail((data) => {
-    console.log(data.responseJSON.message.replace("Error: Error: ", ""));
+    console.info(data.responseJSON.message.replace("Error: Error: ", ""));
   });

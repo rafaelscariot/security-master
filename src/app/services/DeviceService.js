@@ -26,7 +26,7 @@ class DeviceService {
             surname,
           })
             .then(() => {
-              console.log(`Created device ${chatId}`);
+              console.info(`Created device ${chatId}`);
             })
             .catch((error) => {
               throw new Error(error);

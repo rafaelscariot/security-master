@@ -1,4 +1,4 @@
-version: "3.0"
+version: "3.7"
 
 services:
   express:
@@ -12,12 +12,13 @@ services:
     restart: always
 
   mongodb:
-    image: mongo:latest
+    image: tutum/mongodb
     ports:
-      - "27017:27017"
-    volumes:
-      - db-data:/data/db
-      - mongo-config:/data/configdb
+      - 27017:27017
+    environment:
+      - MONGODB_USER=userx
+      - MONGODB_PASS=Ap39jKgs
+      - MONGODB_DATABASE=security_master
     restart: always
 
   python:
@@ -30,7 +31,3 @@ services:
       - express
       - mongodb
     restart: always
-
-volumes:
-  db-data:
-  mongo-config:

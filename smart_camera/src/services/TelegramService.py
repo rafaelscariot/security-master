@@ -21,7 +21,7 @@ class TelegramService:
 
                     message = f'Alerta: {status_detection["type"]} identificado na região {status_detection["region"]}'
 
-                    text = f'https://api.telegram.org/bot{self.token}/sendMessage?chat_id={device["chatId"]}&parse_mode=Markdown&text={message}'
+                    text = "https://api.telegram.org/bot" + self.token + "/sendMessage" + "?chat_id=" + device["chatId"] + "&text=" + message
 
                     img_request = 'curl -s -X POST https://api.telegram.org/bot' + self.token + \
                         '/sendPhoto -F chat_id=' + \

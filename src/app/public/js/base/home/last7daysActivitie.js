@@ -92,5 +92,5 @@ $.ajax({
     });
   })
   .fail((data) => {
-    console.log(data.responseJSON.message.replace("Error: Error: ", ""));
+    console.info(data.responseJSON.message.replace("Error: Error: ", ""));
   });

@@ -14,7 +14,7 @@ $.ajax({
     inputPassword.val(data.password);
   })
   .fail((data) => {
-    console.log(data.responseJSON.message.replace("Error: Error: ", ""));
+    console.info(data.responseJSON.message.replace("Error: Error: ", ""));
   });
 
 // update user
@@ -136,7 +136,7 @@ $.ajax({
     });
   })
   .fail((data) => {
-    console.log(data.responseJSON.message.replace("Error: Error: ", ""));
+    console.info(data.responseJSON.message.replace("Error: Error: ", ""));
   });
 
 // delete device
@@ -151,7 +151,7 @@ const deleteChatId = (index, chatId) => {
       window.location.replace("/securitymaster/profile");
     })
     .fail((data) => {
-      console.log(data.responseJSON.message.replace("Error: ", ""));
+      console.info(data.responseJSON.message.replace("Error: ", ""));
     });
 };
 
