@@ -24,7 +24,7 @@ class SuspectActivitieService {
         occurredDate: new Date(),
       })
         .then(() => {
-          console.log(
+          console.info(
             `Created suspect activitie for the region ${occurredRegion}`
           );
         })

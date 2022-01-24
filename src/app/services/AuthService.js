@@ -64,7 +64,7 @@ class AuthService {
         password: cryptHash,
       })
         .then(() => {
-          console.log(`Created user ${email}`);
+          console.info(`Created user ${email}`);
         })
         .catch((error) => {
           throw new Error(error);

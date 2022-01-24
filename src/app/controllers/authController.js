@@ -7,7 +7,7 @@ authController = (app) => {
       let response = await new AuthService().authentication(email, password);
       res.status(200).send(response);
     } catch (err) {
-      console.log(`USER AUTHENTICATION: ${err}`);
+      console.info(`USER AUTHENTICATION: ${err}`);
       res.status(401).send({ message: String(err) });
     }
   });
@@ -17,7 +17,7 @@ authController = (app) => {
       let response = await new AuthService().register(req.body);
       res.status(200).send(response);
     } catch (err) {
-      console.log(`USER REGISTER: ${err}`);
+      console.info(`USER REGISTER: ${err}`);
       res.status(400).send({ message: String(err) });
     }
   });
@@ -28,7 +28,7 @@ authController = (app) => {
       let response = await new AuthService().tokenValidator(token);
       res.status(200).send(response);
     } catch (err) {
-      console.log(`TOKEN VALIDATOR: ${err}`);
+      console.info(`TOKEN VALIDATOR: ${err}`);
       res.status(401).send({ message: String(err) });
     }
   });

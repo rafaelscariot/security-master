@@ -7,7 +7,7 @@ userController = (app) => {
       const response = await new UserService().userById(token);
       res.status(200).send(response);
     } catch (err) {
-      console.log(`SEARCH USER: ${err}`);
+      console.info(`SEARCH USER: ${err}`);
       res.status(404).send({ message: String(err) });
     }
   });
@@ -17,7 +17,7 @@ userController = (app) => {
       const response = await new UserService().update(req.body);
       res.status(200).send(response);
     } catch (err) {
-      console.log(`UPDATE USER: ${err}`);
+      console.info(`UPDATE USER: ${err}`);
       res.status(400).send({ message: String(err) });
     }
   });

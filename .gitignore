@@ -1,5 +1,6 @@
 .vscode
-data.db
+.env
+data
 # Logs
 logs
 *.log

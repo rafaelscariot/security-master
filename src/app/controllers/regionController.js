@@ -6,7 +6,7 @@ regionController = (app) => {
       const response = await new RegionService().register(req.body);
       res.status(200).send(response);
     } catch (error) {
-      console.log(`REGISTER REGION: ${error}`);
+      console.info(`REGISTER REGION: ${error}`);
       res.status(400).send({ message: String(error) });
     }
   });
@@ -17,7 +17,7 @@ regionController = (app) => {
       const response = await new RegionService().searchById(token);
       res.status(200).send(response);
     } catch (error) {
-      console.log(`SEARCH REGION BY ID: ${error}`);
+      console.info(`SEARCH REGION BY ID: ${error}`);
       res.status(400).send({ message: String(error) });
     }
   });
@@ -27,7 +27,7 @@ regionController = (app) => {
       const response = await new RegionService().searchAll();
       res.status(200).send(response);
     } catch (error) {
-      console.log(`SEARCH REGION: ${error}`);
+      console.info(`SEARCH REGION: ${error}`);
       res.status(400).send({ message: String(error) });
     }
   });
@@ -38,7 +38,7 @@ regionController = (app) => {
       const response = await new RegionService().delete(name);
       res.status(200).send(response);
     } catch (error) {
-      console.log(`DELETE REGION: ${error}`);
+      console.info(`DELETE REGION: ${error}`);
       res.status(400).send({ message: String(error) });
     }
   });
@@ -50,7 +50,7 @@ regionController = (app) => {
       const response = await new RegionService().update(name, camStatus);
       res.status(200).send(response);
     } catch (error) {
-      console.log(`DELETE REGION: ${error}`);
+      console.info(`DELETE REGION: ${error}`);
       res.status(400).send({ message: String(error) });
     }
   });

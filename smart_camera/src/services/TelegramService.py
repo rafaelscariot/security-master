@@ -7,7 +7,7 @@ import os
 class TelegramService:
     def __init__(self):
         self.token = '2014381749:AAFClGB14a76ImwRikaVQ8WrjUUgMLa4CnA'
-        self.BASE_HOST = 'http://localhost:3000'
+        self.BASE_HOST = 'http://express:3000'
 
     def send_notification(self, status_detection, userId):
         try:

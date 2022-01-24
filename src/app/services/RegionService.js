@@ -4,7 +4,6 @@ const getUserId = require("../public/js/getUserId");
 class RegionService {
   async register(region) {
     try {
-      console.log(region)
       const { token, camStatus, name, description, ipCam, startTime, endTime } =
         region;
       if (
@@ -42,7 +41,7 @@ class RegionService {
             camStatus,
           })
             .then(() => {
-              console.log(`Created region ${name}`);
+              console.info(`Created region ${name}`);
             })
             .catch((error) => {
               throw new Error(error);
