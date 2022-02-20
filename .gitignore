@@ -1,6 +1,7 @@
 .vscode
 .env
 data
+src/app/views/*.js
 # Logs
 logs
 *.log
