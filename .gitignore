@@ -1,8 +1,6 @@
 .vscode
 .env
 data
-src/public/css/base/main.css
-src/public/css/home.css
 # Logs
 logs
 *.log
