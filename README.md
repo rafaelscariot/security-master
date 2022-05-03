@@ -33,7 +33,7 @@ All you need is having Docker installed and running.
 Then run:
 
 ```bash
-$ docker-compose up -d --build
+$ docker-compose up -d
 ```
 
 and now access _http://localhost:3000_ in your preferred browser.
